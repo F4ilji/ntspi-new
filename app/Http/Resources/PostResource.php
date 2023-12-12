@@ -24,7 +24,7 @@ class PostResource extends JsonResource
             'category' => $this->category,
             'authors' => $this->authors,
             'gallery' => new GalleryResource($this->gallery),
-            'created_post' => $this->diffForHumansRussian($this->created_at),
+            'created_post' => $this->created_at->diffforhumans(),
         ];
     }
 }

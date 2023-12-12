@@ -1,9 +1,10 @@
 <template>
-
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
 
 
 	<div class="w-full h-[67px] fixed" id="visor"></div>
+	<div class="w-full fixed" id="progress"></div>
+
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="sticky top-[121px] hidden h-[calc(100vh-121px)] min-w-[20%] md:flex md:shrink-0 md:flex-col md:justify-between">
 			<nav v-if="this.subSectionPages"
@@ -27,7 +28,7 @@
 			<div class="sticky top-[126px] h-[calc(100vh-121px)]">
 				<div class="text-gray-1000 mb-2 text-md font-medium">На этой странице</div>
 				<ul class="styled-scrollbar max-h-[70vh] space-y-2.5 overflow-y-auto py-2 text-sm">
-					<li v-for="pageNav in this.page.data.content.blocks
+					<li class="anchor-li" v-for="pageNav in this.page.data.content.blocks
                     .filter(block => block.type === 'header')
                     .map(block => ({ id: block.id, text: block.data.text }))">
 						<a :class="{ 'bg-gray-100 text-gray-800' : currentNavSection === 'header_' + pageNav.id, 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== 'header_' + pageNav.id }"
@@ -422,6 +423,11 @@ export default {
 </script>
 
 <style scoped>
+p, article li, h1,h2,h3,h4, img {
+	animation: fade linear both !important;
+	animation-timeline: view() !important;
+	animation-range: entry 30% cover 30% !important;
+}
 
 
 @keyframes fade {
@@ -433,7 +439,19 @@ export default {
 	}
 }
 
-h2 {
+@keyframes grow-progress {
+	from { transform: scaleX(0); }
+	to { transform: scaleX(1); }
+}
+
+#progress {
+	height: 2px;
+	background: #26ACB8;
+	z-index: 10000;
+
+	transform-origin: 0 50%;
+	animation: grow-progress auto linear;
+	animation-timeline: scroll();
 }
 
 

@@ -71,6 +71,7 @@ export default {
 <template>
 
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
+	<div class="w-full fixed" id="progress"></div>
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
 			<div class="">
@@ -237,5 +238,20 @@ export default {
 </template>
 
 <style scoped>
+
+@keyframes grow-progress {
+	from { transform: scaleX(0); }
+	to { transform: scaleX(1); }
+}
+
+#progress {
+	height: 2px;
+	background: #26ACB8;
+	z-index: 10000;
+
+	transform-origin: 0 50%;
+	animation: grow-progress auto linear;
+	animation-timeline: scroll();
+}
 
 </style>
