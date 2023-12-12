@@ -1,9 +1,12 @@
 <template>
+	<Head>
+		<title>{{ page.data.title }}</title>
+		<meta name="description" content="Your page description">
+	</Head>
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
 
 
 	<div class="w-full h-[67px] fixed" id="visor"></div>
-	<div class="w-full fixed" id="progress"></div>
 
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="sticky top-[121px] hidden h-[calc(100vh-121px)] min-w-[20%] md:flex md:shrink-0 md:flex-col md:justify-between">
@@ -132,7 +135,7 @@
 						</div>
 						<div v-if="block.type === 'paragraph'">
 							<p v-html="block.data.text"
-							   class="text-[16px] text-gray-700 text-justify leading-relaxed"></p>
+							   class="text-[16px] text-gray-700 text-justify leading-7"></p>
 						</div>
 						<div v-if="block.type === 'list'">
 							<ul class="list-outside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
@@ -312,6 +315,7 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 import FsLightbox from "fslightbox-vue/v3";
 import MainNavbar from "@/Navbars/MainNavbar.vue";
 import ClientFooterDown from "@/Components/ClientFooterDown.vue";
+import { Head } from '@inertiajs/vue3'
 
 
 export default {
@@ -341,6 +345,7 @@ export default {
 		AdminLayout,
 		Link,
 		FsLightbox,
+		Head
 	},
 	methods: {
 		textLimit(text, symbols) {
@@ -423,7 +428,7 @@ export default {
 </script>
 
 <style scoped>
-p, article li, h1,h2,h3,h4, img {
+p, a, article li, h1, h2, h3, h4, img {
 	animation: fade linear both !important;
 	animation-timeline: view() !important;
 	animation-range: entry 30% cover 30% !important;

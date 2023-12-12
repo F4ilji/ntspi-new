@@ -1,12 +1,12 @@
 <script>
 import MainNavbar from "@/Navbars/MainNavbar.vue";
-import {Link} from "@inertiajs/vue3";
+import {Head, Link} from "@inertiajs/vue3";
 import FsLightbox from "fslightbox-vue/v3";
 
 
 export default {
 	name: "Show",
-	components: {Link, MainNavbar, FsLightbox},
+	components: {Link, MainNavbar, FsLightbox, Head},
 	data() {
 		return {
 			blocks: this.blocksWithSlideNumber,
@@ -69,7 +69,10 @@ export default {
 </script>
 
 <template>
-
+	<Head>
+		<title>{{ post.data.title }}</title>
+		<meta name="description" content="Your page description">
+	</Head>
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
 	<div class="w-full fixed" id="progress"></div>
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
@@ -163,11 +166,11 @@ export default {
 							</figure>
 						</div>
 						<div v-if="block.type === 'paragraph'">
-							<p class="text-[16px] text-gray-800 dark:text-gray-200 text-justify">{{ block.data.text }}</p>
+							<p class="text-[16px] text-gray-800 dark:text-gray-200 text-justify leading-7">{{ block.data.text }}</p>
 						</div>
 						<div class="" v-if="block.type === 'list'">
 							<ul class="list-inside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
-								<li class="text-[16px] text-gray-800 dark:text-gray-200 text-justify" v-for="item in block.data.items" v-html="item"></li>
+								<li class="text-[16px] text-gray-800 dark:text-gray-200 text-justify leading-7" v-for="item in block.data.items" v-html="item"></li>
 							</ul>
 						</div>
 						<div v-if="block.type === 'attaches'">
@@ -247,7 +250,7 @@ export default {
 #progress {
 	height: 2px;
 	background: #26ACB8;
-	z-index: 10000;
+	z-index: 100;
 
 	transform-origin: 0 50%;
 	animation: grow-progress auto linear;
