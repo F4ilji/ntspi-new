@@ -1,4 +1,8 @@
 <template>
+	<Head>
+		<title>Главная</title>
+		<meta name="description" content="Your page description">
+	</Head>
     <MainNavbar :sections="this.mainSections"></MainNavbar>
 
 
@@ -7,6 +11,7 @@
 <script>
 import MainNavbar from "@/Navbars/MainNavbar.vue";
 import axios from "axios";
+import {Head, Link} from "@inertiajs/vue3";
 
 
 export default {
@@ -21,7 +26,8 @@ export default {
 		'mainSections',
     ],
     components: {
-        MainNavbar
+        MainNavbar,
+		Head
     },
 
     methods: {

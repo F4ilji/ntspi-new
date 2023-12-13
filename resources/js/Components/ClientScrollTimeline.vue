@@ -19,7 +19,7 @@ export default {
 	top: 0;
 	height: 2px;
 	background: #26ACB8;
-	z-index: 50;
+	z-index: 99;
 	width: 100%;
 	position: fixed;
 

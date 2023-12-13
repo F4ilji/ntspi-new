@@ -121,7 +121,7 @@ export default {
 <style scoped>
 
 header {
-  transition: all 0.3s ;  /* Другие стили для уменьшенного хедера */
+  transition: all 0.3s ;
   backdrop-filter: saturate(180%) blur(7px);
   background: hsla(0,0%,100%,.6);
 }

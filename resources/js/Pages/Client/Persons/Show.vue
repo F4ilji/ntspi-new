@@ -1,10 +1,11 @@
 <script>
 import MainNavbar from "@/Navbars/MainNavbar.vue";
 import ClientFooterDown from "@/Components/ClientFooterDown.vue";
+import {Head, Link} from "@inertiajs/vue3";
 
 export default {
 	name: "Show",
-	components: {ClientFooterDown, MainNavbar},
+	components: {ClientFooterDown, MainNavbar, Head},
 	props: {
 		userDetail: {
 			type: Array
@@ -23,7 +24,12 @@ export default {
 </script>
 
 <template>
+	<Head>
+		<title>{{ this.getFullName() }}</title>
+		<meta name="description" content="Your page description">
+	</Head>
 	<MainNavbar :sections="this.mainSections"></MainNavbar>
+
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="sticky top-[121px] hidden h-[calc(100vh-121px)] min-w-[20%] md:flex md:shrink-0 md:flex-col md:justify-between">
 		</div>

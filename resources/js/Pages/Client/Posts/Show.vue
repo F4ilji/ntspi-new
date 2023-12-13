@@ -3,11 +3,12 @@ import MainNavbar from "@/Navbars/MainNavbar.vue";
 import {Head, Link} from "@inertiajs/vue3";
 import FsLightbox from "fslightbox-vue/v3";
 import ClientScrollTimeline from "@/Components/ClientScrollTimeline.vue";
+import ClientFooterDown from "@/Components/ClientFooterDown.vue";
 
 
 export default {
 	name: "Show",
-	components: {ClientScrollTimeline, Link, MainNavbar, FsLightbox, Head},
+	components: {ClientFooterDown, ClientScrollTimeline, Link, MainNavbar, FsLightbox, Head},
 	data() {
 		return {
 			blocks: this.blocksWithSlideNumber,
@@ -74,8 +75,8 @@ export default {
 		<title>{{ post.data.title }}</title>
 		<meta name="description" content="Your page description">
 	</Head>
-	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
 	<ClientScrollTimeline />
+	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="max-w-4xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
 			<div class="">
@@ -238,6 +239,7 @@ export default {
 
 		<FsLightbox class="z-1000" :slide="slide" :toggler="toggler" :sources="editorImages" />
 	</div>
+	<ClientFooterDown />
 
 </template>
 
