@@ -2,11 +2,12 @@
 import MainNavbar from "@/Navbars/MainNavbar.vue";
 import {Head, Link} from "@inertiajs/vue3";
 import FsLightbox from "fslightbox-vue/v3";
+import ClientScrollTimeline from "@/Components/ClientScrollTimeline.vue";
 
 
 export default {
 	name: "Show",
-	components: {Link, MainNavbar, FsLightbox, Head},
+	components: {ClientScrollTimeline, Link, MainNavbar, FsLightbox, Head},
 	data() {
 		return {
 			blocks: this.blocksWithSlideNumber,
@@ -74,7 +75,7 @@ export default {
 		<meta name="description" content="Your page description">
 	</Head>
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
-	<div class="w-full fixed" id="progress"></div>
+	<ClientScrollTimeline />
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="max-w-4xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
 			<div class="">
@@ -204,7 +205,7 @@ export default {
 			</div>
 		</div>
 
-		<div id="hs-large-modal" class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
+		<div style="z-index: 1000" id="hs-large-modal" class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
 			<div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 lg:mx-auto">
 				<div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
 					<div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
@@ -242,19 +243,6 @@ export default {
 
 <style scoped>
 
-@keyframes grow-progress {
-	from { transform: scaleX(0); }
-	to { transform: scaleX(1); }
-}
 
-#progress {
-	height: 2px;
-	background: #26ACB8;
-	z-index: 100;
-
-	transform-origin: 0 50%;
-	animation: grow-progress auto linear;
-	animation-timeline: scroll();
-}
 
 </style>
