@@ -76,7 +76,7 @@ export default {
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
 	<div class="w-full fixed" id="progress"></div>
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
-		<div class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
+		<div class="max-w-4xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
 			<div class="">
 				<!-- Avatar Media -->
 				<!-- End Avatar Media -->

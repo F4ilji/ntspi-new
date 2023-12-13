@@ -34,9 +34,9 @@
 					<li class="anchor-li" v-for="pageNav in this.page.data.content.blocks
                     .filter(block => block.type === 'header')
                     .map(block => ({ id: block.id, text: block.data.text }))">
-						<a :class="{ 'bg-gray-100 text-gray-800' : currentNavSection === 'header_' + pageNav.id, 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== 'header_' + pageNav.id }"
+						<a :class="{ 'bg-gray-100 text-gray-800' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
 						   class="duration-300 block py-1 px-2 leading-[1.6] rounded-md"
-						   :href="'#header_' + pageNav.id">{{ pageNav.text }}</a>
+						   :href="'#' + generateSlug(pageNav.text)">{{ pageNav.text }}</a>
 					</li>
 
 				</ul>
@@ -131,7 +131,7 @@
 							</figure>
 						</div>
 						<div v-if="block.type === 'header'">
-							<h2 :id="'header_' + block.id" class="font-bold text-xl mt-10">{{ block.data.text }}</h2>
+							<h2 :id="generateSlug(block.data.text)" class="font-bold text-xl mt-10">{{ block.data.text }}</h2>
 						</div>
 						<div v-if="block.type === 'paragraph'">
 							<p v-html="block.data.text"
@@ -139,7 +139,7 @@
 						</div>
 						<div v-if="block.type === 'list'">
 							<ul class="list-outside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
-								<li class="ml-5 text-[16px] text-gray-700 text-justify leading-loose"
+								<li class="ml-5 text-[16px] mt-2 text-gray-700 text-justify leading-7"
 									v-for="item in block.data.items"
 									v-html="item"></li>
 							</ul>
@@ -316,6 +316,7 @@ import FsLightbox from "fslightbox-vue/v3";
 import MainNavbar from "@/Navbars/MainNavbar.vue";
 import ClientFooterDown from "@/Components/ClientFooterDown.vue";
 import { Head } from '@inertiajs/vue3'
+import slugify from "slugify";
 
 
 export default {
@@ -365,6 +366,14 @@ export default {
 				return true
 			}
 		},
+		generateSlug: function (text) {
+			return slugify(text, {
+				lower: true,
+				strict: true,
+				locale: 'ru'
+			});
+		}
+
 	},
 	mounted() {
 		this.editorImages = this.blocksWithSlideNumber.filter(block => block.type === 'image').map(block => block.data.file.url);
@@ -428,7 +437,7 @@ export default {
 </script>
 
 <style scoped>
-p, a, article li, h1, h2, h3, h4, img {
+p, article li, h1, h2, h3, h4 {
 	animation: fade linear both !important;
 	animation-timeline: view() !important;
 	animation-range: entry 30% cover 30% !important;
