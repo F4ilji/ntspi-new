@@ -29,7 +29,7 @@ class LinkToolController extends Controller
                 ]
             ]);
         }
-        if ($request->input('url') == \route('admin.post.show', ['slug' => $this->getSlugFromUrl($request->input('url')) ])) {
+        if ($request->input('url') == \route('client.post.show', ['slug' => $this->getSlugFromUrl($request->input('url')) ])) {
             $post = Post::query()->where('slug', '=', $this->getSlugFromUrl($request->input('url')))->first();
             $content = json_decode($post->content);
             foreach ($content->blocks as $data) {

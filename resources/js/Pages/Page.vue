@@ -34,7 +34,7 @@
 					<li class="anchor-li" v-for="pageNav in this.page.data.content.blocks
                     .filter(block => block.type === 'header')
                     .map(block => ({ id: block.id, text: block.data.text }))">
-						<a :class="{ 'bg-gray-100 text-gray-800' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
+						<a :class="{ 'bg-gray-50 text-[#26ACB8]' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
 						   class="duration-300 block py-1 px-2 leading-[1.6] rounded-md"
 						   :href="'#' + generateSlug(pageNav.text)">{{ pageNav.text }}</a>
 					</li>
@@ -119,7 +119,7 @@
 
 				<div id="scrollspy" class="space-y-5 md:space-y-5">
 					<template v-for="block in blocksWithSlideNumber">
-						<div v-if="block.type === 'image'">
+						<div class="smooth-emerging" v-if="block.type === 'image'">
 							<figure>
 								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"
 									 :src="block.data.file.url"
@@ -130,21 +130,21 @@
 								</figcaption>
 							</figure>
 						</div>
-						<div v-if="block.type === 'header'">
+						<div class="smooth-emerging" v-if="block.type === 'header'">
 							<h2 :id="generateSlug(block.data.text)" class="font-bold text-xl mt-10">{{ block.data.text }}</h2>
 						</div>
-						<div v-if="block.type === 'paragraph'">
+						<div class="smooth-emerging" v-if="block.type === 'paragraph'">
 							<p v-html="block.data.text"
 							   class="text-[16px] text-gray-700 text-justify leading-7"></p>
 						</div>
 						<div v-if="block.type === 'list'">
 							<ul class="list-outside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
-								<li class="ml-5 text-[16px] mt-2 text-gray-700 text-justify leading-7"
+								<li class="ml-5 text-[16px] mt-2 text-gray-700 text-justify leading-7 smooth-emerging"
 									v-for="item in block.data.items"
 									v-html="item"></li>
 							</ul>
 						</div>
-						<div v-if="block.type === 'attaches'">
+						<div class="smooth-emerging" v-if="block.type === 'attaches'">
 							<div class="flex border rounded-lg px-4 py-2 items-center justify-between">
 								<div class="flex items-center">
 									<div class="w-[35px] h-[35px] bg-black flex justify-center items-center rounded-xl mr-2">
@@ -170,11 +170,11 @@
 								</a>
 							</div>
 						</div>
-						<div v-if="block.type === 'linkTool'">
+						<div class="smooth-emerging" v-if="block.type === 'linkTool'">
 							<div v-if="block.data.meta.type === 'post'" class="w-full mx-auto">
 								<a class="group relative block rounded-xl dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" :href="block.data.link">
 										<div class="flex-shrink-0 relative w-full rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:w-full before:h-full before:bg-gradient-to-t before:from-gray-900/[.7] before:z-[1]">
-											<img class="w-full h-full absolute top-0 start-0 object-cover" src="https://images.unsplash.com/photo-1669828230990-9b8583a877ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1062&q=80" alt="Image Description">
+											<img loading="lazy" class="w-full h-full absolute top-0 start-0 object-cover" src="https://images.unsplash.com/photo-1669828230990-9b8583a877ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1062&q=80" alt="Image Description">
 										</div>
 
 										<div class="absolute top-0 inset-x-0 z-10">
@@ -209,11 +209,11 @@
 							<!-- End Card Blog -->
 							<div v-if="block.data.meta.type === 'person'" class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-gray-200 dark:bg-slate-900 dark:border-gray-700">
 								<div class="flex items-center gap-x-4">
-									<img class="rounded-xl w-[150px]" :src="block.data.meta.data.photo" alt="Image Description">
+									<img loading="lazy" class="rounded-xl w-[150px]" :src="block.data.meta.data.photo" alt="Image Description">
 									<div class="grow">
-										<a :href="block.data.link" class="font-medium text-gray-800 hover:text-gray-500 underline">
+										<Link :href="block.data.link" class="font-medium text-gray-800 hover:text-gray-500 underline">
 											{{ block.data.meta.title }}
-										</a>
+										</Link>
 										<p class="text-xs text-gray-500 mt-2">
 											{{ block.data.meta.data.administrativePosition }} / {{ block.data.meta.data.educatorPosition }}
 										</p>
@@ -437,7 +437,7 @@ export default {
 </script>
 
 <style scoped>
-p, article li, h1, h2, h3, h4 {
+.smooth-emerging {
 	animation: fade linear both !important;
 	animation-timeline: view() !important;
 	animation-range: entry 30% cover 30% !important;
