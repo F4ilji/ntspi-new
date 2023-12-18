@@ -48,7 +48,6 @@ class UserDetailController extends Controller
 
     private function storePhoto(UploadedFile $file)
     {
-
         if ($file->isValid()) {
             $image = $file;
             // Генерируем уникальное имя файла, чтобы избежать конфликтов

@@ -28,16 +28,22 @@
 			</nav>
 		</div>
 		<nav class="order-last hidden w-56 shrink-0 lg:block">
-			<div class="sticky top-[126px] h-[calc(100vh-121px)]">
+			<div v-if="this.headerNavs > 0" class="sticky top-[126px] h-[calc(100vh-121px)]">
 				<div class="text-gray-1000 mb-2 text-md font-medium">На этой странице</div>
-				<ul class="styled-scrollbar max-h-[70vh] space-y-2.5 overflow-y-auto py-2 text-sm">
-					<li class="anchor-li" v-for="pageNav in this.page.data.content.blocks
-                    .filter(block => block.type === 'header')
-                    .map(block => ({ id: block.id, text: block.data.text }))">
-						<a :class="{ 'bg-gray-50 text-[#26ACB8]' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
+				<ul class="styled-scrollbar max-h-[70vh] space-y-1.5 overflow-y-auto py-2 text-sm">
+					<li class="anchor-li" v-for="pageNav in headerNavs">
+						<a :class="{ 'translate-x-2 text-[#26ACB8]' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
 						   class="duration-300 block py-1 px-2 leading-[1.6] rounded-md"
 						   :href="'#' + generateSlug(pageNav.text)">{{ pageNav.text }}</a>
 					</li>
+					<transition name="fade">
+						<li class="anchor-li flex items-center py-2 border-t" v-if="scrollTop" @click.prevent="scrollToTop">
+							<a class="bg-transperant text-gray-600 cursor-pointer hover:text-gray-900 duration-300 block px-2 leading-[1.6] rounded-md">К началу</a>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[17px] text-gray-600">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</li>
+					</transition>
 
 				</ul>
 			</div>
@@ -123,7 +129,7 @@
 							<figure>
 								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"
 									 :src="block.data.file.url"
-									 class="w-full max-h-[500px] object-cover rounded-xl hover:opacity-95 hover:duration-200 transition"
+									 class="w-full max-h-[350px] object-cover rounded-xl hover:opacity-95 hover:duration-200 transition"
 									 :alt="block.data.caption">
 								<figcaption class="mt-3 text-sm text-center text-gray-500">
 									{{ block.data.caption }}
@@ -135,11 +141,11 @@
 						</div>
 						<div class="smooth-emerging" v-if="block.type === 'paragraph'">
 							<p v-html="block.data.text"
-							   class="text-[16px] text-gray-700 text-justify leading-7"></p>
+							   class="text-[16px] text-gray-700  leading-7"></p>
 						</div>
 						<div v-if="block.type === 'list'">
 							<ul class="list-outside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
-								<li class="ml-5 text-[16px] mt-2 text-gray-700 text-justify leading-7 smooth-emerging"
+								<li class="ml-5 text-[16px] mt-2 text-gray-700  leading-7 smooth-emerging"
 									v-for="item in block.data.items"
 									v-html="item"></li>
 							</ul>
@@ -248,12 +254,12 @@
 										</div>
 										<div v-if="block.type === 'paragraph'">
 											<p v-html="block.data.text"
-											   class="text-[16px] text-gray-700 text-justify leading-relaxed"></p>
+											   class="text-[16px] text-gray-700  leading-relaxed"></p>
 										</div>
 										<div v-if="block.type === 'list'">
 											<ul class="list-outside"
 												:class="{ 'list-disc': block.data.style === 'unordered'  }">
-												<li class="ml-5 text-[16px] text-gray-700 text-justify leading-loose"
+												<li class="ml-5 text-[16px] text-gray-700  leading-loose"
 													v-for="item in block.data.items"
 													v-html="item"></li>
 											</ul>
@@ -330,6 +336,8 @@ export default {
 			slide: 1,
 			pageNavs: this.getPageNavs,
 			currentNavSection: null,
+			scrollTop: false,
+			headerNavs: this.page.data.content.blocks.filter(block => block.type === 'header').map(block => ({ id: block.id, text: block.data.text }))
 		}
 	},
 
@@ -371,10 +379,23 @@ export default {
 				strict: true,
 				locale: 'ru'
 			});
+		},
+		onScroll(e) {
+			const windowTop = window.top.scrollY
+			if (windowTop > 100) {
+				this.scrollTop = true
+			} else {
+				this.scrollTop = false
+			}
+		},
+		scrollToTop() {
+			window.scrollTo(0, 0)
 		}
 
 	},
 	mounted() {
+		window.addEventListener("scroll", this.onScroll)
+
 		this.editorImages = this.blocksWithSlideNumber.filter(block => block.type === 'image').map(block => block.data.file.url);
 
 		const links = document.querySelectorAll('a:not([href^="#"]):not([download])');
@@ -418,6 +439,7 @@ export default {
 	},
 	beforeDestroy() {
 		window.removeEventListener('scroll', this.handleScroll);
+		window.removeEventListener("scroll", this.onScroll)
 	},
 
 	computed: {
@@ -439,7 +461,7 @@ export default {
 .smooth-emerging {
 	animation: fade linear both !important;
 	animation-timeline: view() !important;
-	animation-range: entry 30% cover 30% !important;
+	animation-range: entry 20% cover 30% !important;
 }
 
 
@@ -450,6 +472,16 @@ export default {
 	to {
 		opacity: 1;
 	}
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: all 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
 }
 
 @keyframes grow-progress {
