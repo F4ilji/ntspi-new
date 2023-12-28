@@ -3,7 +3,7 @@
 		<title>{{ page.data.title }}</title>
 		<meta name="description" content="Your page description">
 	</Head>
-	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
+	<MainNavbar class="border-b" :sections="this.mainSections" />
 
 
 	<div class="w-full h-[67px] fixed" id="visor"></div>
@@ -18,7 +18,7 @@
 						<li v-for="page in this.subSectionPages.data" class="my-1.5 flex">
 							<a :class="{'text-white hover:text-gray-200 font-semibold bg-[#2C6288]': isSameRoute(page.path), 'text-gray-600 hover:text-[#26ACB8]': !isSameRoute(page.path) }"
 							   :href="page.path"
-							   class="relative duration-300 flex w-full rounded-md cursor-pointer items-centerp ml-1 px-2 py-1 text-left text-sm">{{
+							   class="relative duration-300 flex w-full rounded-md cursor-pointer items-centerp px-2 py-1 text-left text-sm">{{
 									page.title
 								}}</a>
 						</li>
@@ -28,12 +28,12 @@
 			</nav>
 		</div>
 		<nav class="order-last hidden w-56 shrink-0 lg:block">
-			<div v-if="this.headerNavs > 0" class="sticky top-[126px] h-[calc(100vh-121px)]">
+			<div class="sticky top-[126px] h-[calc(100vh-121px)]">
 				<div class="text-gray-1000 mb-2 text-md font-medium">На этой странице</div>
 				<ul class="styled-scrollbar max-h-[70vh] space-y-1.5 overflow-y-auto py-2 text-sm">
 					<li class="anchor-li" v-for="pageNav in headerNavs">
 						<a :class="{ 'translate-x-2 text-[#26ACB8]' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
-						   class="duration-300 block py-1 px-2 leading-[1.6] rounded-md"
+						   class="duration-150 block py-1 px-2 leading-[1.6] rounded-md"
 						   :href="'#' + generateSlug(pageNav.text)">{{ pageNav.text }}</a>
 					</li>
 					<transition name="fade">
@@ -44,7 +44,6 @@
 							</svg>
 						</li>
 					</transition>
-
 				</ul>
 			</div>
 		</nav>
@@ -129,7 +128,7 @@
 							<figure>
 								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"
 									 :src="block.data.file.url"
-									 class="w-full max-h-[350px] object-cover rounded-xl hover:opacity-95 hover:duration-200 transition"
+									 class="w-full max-h-[350px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition"
 									 :alt="block.data.caption">
 								<figcaption class="mt-3 text-sm text-center text-gray-500">
 									{{ block.data.caption }}
@@ -461,7 +460,7 @@ export default {
 .smooth-emerging {
 	animation: fade linear both !important;
 	animation-timeline: view() !important;
-	animation-range: entry 20% cover 30% !important;
+	animation-range: entry 10% cover 20% !important;
 }
 
 

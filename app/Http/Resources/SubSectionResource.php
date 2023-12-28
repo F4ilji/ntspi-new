@@ -19,7 +19,7 @@ class SubSectionResource extends JsonResource
             'title' => $this->title,
             'pages' => PageResource::collection($this->pages),
             'main_section' => $this->mainSection->title ?? null,
-            'created_at' => $this->diffForHumansRussian($this->created_at),
+            'created_at' => $this->created_at->diffforhumans(),
         ];
     }
 }

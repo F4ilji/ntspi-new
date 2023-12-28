@@ -1,0 +1,21 @@
+version: '3'
+services:
+  webserver:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "8123:80"
+    container_name: ntspi-nginx
+    depends_on:
+      - app
+  app:
+    build:
+        context: .
+        dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+        - "6001:6001"
+    container_name: ntspi-php
