@@ -19,7 +19,7 @@ class ScheduleResource extends JsonResource
             'name' => $this->name,
             'faculty' => $this->faculty->title,
             'subSchedules' => $this->subSchedules,
-            'created_at' => $this->diffForHumansRussian($this->created_at)
+            'created_at' => $this->created_at->diffforhumans()
         ];
     }
 }

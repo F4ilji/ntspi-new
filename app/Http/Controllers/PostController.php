@@ -78,8 +78,9 @@ class PostController extends Controller
                 'post_id' => $post->id,
             ]);
             foreach ($images as $image) {
-                $filename = md5(Carbon::now() . '_' . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
+                $filename = md5(Carbon::now() . '_' . $image->getClientOriginalName()) . '.' . 'jpeg';
 
+                ImageTool::configure(['driver' => 'imagick']);
                 ImageTool::make($image)
                     ->resize(1200, null, function ($constraint) {
                         $constraint->aspectRatio();

@@ -16,7 +16,7 @@
 				<div class="flex gap-x-1">
 					<ul class="px-0.5 last-of-type:mb-0 mb-8">
 						<li v-for="page in this.subSectionPages.data" class="my-1.5 flex">
-							<a :class="{'text-white hover:text-gray-200 font-semibold bg-[#2C6288]': isSameRoute(page.path), 'text-gray-600 hover:text-[#26ACB8]': !isSameRoute(page.path) }"
+							<a :class="{'text-white hover:text-gray-200 font-semibold bg-[#135aae]': isSameRoute(page.path), 'text-gray-600 hover:text-[#2C6288]': !isSameRoute(page.path) }"
 							   :href="page.path"
 							   class="relative duration-300 flex w-full rounded-md cursor-pointer items-centerp px-2 py-1 text-left text-sm">{{
 									page.title
@@ -32,7 +32,7 @@
 				<div class="text-gray-1000 mb-2 text-md font-medium">На этой странице</div>
 				<ul class="styled-scrollbar max-h-[70vh] space-y-1.5 overflow-y-auto py-2 text-sm">
 					<li class="anchor-li" v-for="pageNav in headerNavs">
-						<a :class="{ 'translate-x-2 text-[#26ACB8]' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
+						<a :class="{ 'translate-x-2 text-[#135aae]' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
 						   class="duration-150 block py-1 px-2 leading-[1.6] rounded-md"
 						   :href="'#' + generateSlug(pageNav.text)">{{ pageNav.text }}</a>
 					</li>

@@ -1,5 +1,4 @@
 <template>
-
 	<header class="flex fixed top-0 left-0 right-0 flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white text-sm py-3 md:py-0 dark:bg-gray-800">
         <nav class="max-w-screen-xl w-full mx-auto px-4" aria-label="Global">
             <div class="relative md:flex md:items-center md:justify-between">
@@ -35,7 +34,7 @@
                                                             </div>
 
                                                             <template v-for="page in subsection.pages">
-                                                                <Link :class="{'text-[#2C6288] hover:text-gray-800 font-semibold ' : isSameRoute(page.path), 'text-gray-800 hover:text-[#26ACB8]' : !isSameRoute(page.path) }" class="flex items-center gap-x-2" :href="page.path">
+                                                                <Link :class="{'text-[#135aae] hover:text-gray-800 font-semibold ' : isSameRoute(page.path), 'text-gray-800 hover:text-[#2C6288]' : !isSameRoute(page.path) }" class="flex items-center gap-x-2" :href="page.path">
                                                                     <div class="grow">
                                                                         <p>{{ page.title }}</p>
                                                                     </div>

@@ -79,15 +79,9 @@ export default {
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
-			<div class="">
+			<div>
 				<!-- Avatar Media -->
 				<!-- End Avatar Media -->
-				<Link :href="route('admin.post.index')" class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline dark:text-blue-400 mb-6">
-					<svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-						<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-					</svg>
-					Вернуться к новостям
-				</Link>
 				<!-- Content -->
 				<div class="space-y-5 md:space-y-4">
 					<div class="space-y-3">
@@ -161,7 +155,7 @@ export default {
 					<template v-for="block in blocksWithSlideNumber">
 						<div v-if="block.type === 'image'">
 							<figure>
-								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)" :src="block.data.file.url" class="w-full max-h-[500px] object-cover rounded-xl hover:opacity-95 hover:duration-200 transition" :alt="block.data.caption">
+								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)" :src="block.data.file.url" class="w-full max-h-[500px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition" :alt="block.data.caption">
 								<figcaption class="mt-3 text-sm text-center text-gray-500">
 									{{ block.data.caption }}
 								</figcaption>
@@ -194,7 +188,7 @@ export default {
 					</template>
 					<div v-if="galleryImages.length" class="grid gap-4 border-t border-gray-300 py-4">
 						<div class="relative">
-							<img class="filter brightness-[0.7] w-full max-h-[500px] object-cover rounded-xl hover:opacity-95 hover:duration-200 transition" :src="galleryImages[0]" data-hs-overlay="#hs-large-modal" alt="">
+							<img class="filter brightness-[0.7] w-full max-h-[500px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition" :src="galleryImages[0]" data-hs-overlay="#hs-large-modal" alt="">
 							<div class="absolute inset-x-0 bottom-5 flex flex-col justify-center items-center">
 								<p class="text-white text-sm lg:text-xl text-center">{{ post.data.title }}</p>
 								<span class="text-gray-400 text-sm">{{ galleryImages.length }} фотографий</span>

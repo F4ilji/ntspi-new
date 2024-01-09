@@ -16,6 +16,4 @@ services:
         dockerfile: _docker/app/Dockerfile
     volumes:
       - ./:/var/www
-    ports:
-        - "6001:6001"
     container_name: ntspi-php

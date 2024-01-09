@@ -44,11 +44,12 @@ class ScheduleController extends Controller
         return Inertia::render('AdminPanel/Schedules/Show', compact('schedule'));
     }
 
-    public function clientIndex()
+    public function clientIndex(Request $request)
     {
         $mainSections = MainSectionResource::collection(MainSection::all());
 
         $schedules = collect();
+
         if (request()->filled('search')) {
             $schedules = ScheduleResource::collection(Schedule::query()
                 ->where('name', 'like', '%' . request()->input('search') . '%')
