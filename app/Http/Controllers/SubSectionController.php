@@ -34,7 +34,7 @@ class SubSectionController extends Controller
         unset($data['page_ids']);
         $subSection = SubSection::create($data);
         Page::whereIn('id', $page_ids)->update(['sub_section_id' => $subSection->id]);
-        return Inertia::render('AdminPanel/SubSection/Index');
+        return redirect()->route('admin.subSection.index');
 
     }
 

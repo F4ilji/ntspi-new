@@ -34,7 +34,7 @@ class MainSectionController extends Controller
         unset($data['subSection_ids']);
         $mainSection = MainSection::create($data);
         SubSection::whereIn('id', $subSection_ids)->update(['main_section_id' => $mainSection->id]);
-        return Inertia::render('AdminPanel/MainSection/Index');
+        return redirect()->route('admin.mainSection.index');
 
     }
 

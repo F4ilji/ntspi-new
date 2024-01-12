@@ -20,8 +20,8 @@
         a, button {
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
             -webkit-tap-highlight-color: transparent !important;
-
         }
+
         .ce-header {
             font-weight: bold;
             font-size: 20px;

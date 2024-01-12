@@ -30,7 +30,7 @@
 							<AdminIndexTableCell :value="page.created_at"/>
 
 							<AdminIndexTableButtonGroup>
-								<AdminIndexTableButtonView :title="'Посмотреть'" :link="route('page.view', page.path)" />
+								<AdminIndexTableButtonView :title="'Посмотреть'" :link="route('page.view', page.path) + '/'" />
 
 								<AdminIndexTableDropdownButton :title="'Действия'">
 									<AdminIndexTableDropdownElement :title="'Обновить'" :link="route('admin.page.edit', page.slug)" :method="'get'" />

@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
       zip \
       unzip \
       git && \
-      docker-php-ext-install pdo_mysql && \
+      docker-php-ext-install pdo_pgsql && \
       docker-php-ext-install bcmath && \
       docker-php-ext-install gd && \
       docker-php-ext-install zip && \

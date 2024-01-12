@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('faculty_id');
-            $table->foreign('faculty_id')->references('id')->on('faculties');
+            $table->foreign('faculty_id')->references('id')->on('faculties')->onDelete('cascade');
             $table->boolean('is_fullTime');
             $table->timestamps();
         });
@@ -26,6 +26,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shedules');
+        Schema::table('schedules', function (Blueprint $table) {
+            $table->dropForeign(['faculty_id']);
+        });
+        Schema::dropIfExists('schedules');
     }
 };

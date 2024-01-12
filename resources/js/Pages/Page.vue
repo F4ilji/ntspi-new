@@ -6,10 +6,11 @@
 	<MainNavbar class="border-b" :sections="this.mainSections" />
 
 
+
 	<div class="w-full h-[67px] fixed" id="visor"></div>
 
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
-		<div class="sticky top-[121px] hidden h-[calc(100vh-121px)] min-w-[20%] md:flex md:shrink-0 md:flex-col md:justify-between">
+		<div class="sticky top-[121px] hidden h-[calc(100vh-121px)] max-w-[20%] md:flex md:shrink-0 md:flex-col md:justify-between">
 			<nav v-if="this.subSectionPages"
 				 class="styled-scrollbar flex h-[calc(100vh-200px)] flex-col overflow-y-scroll pr-2 pb-4">
 				<div class="text-gray-1000 mb-2 text-md font-medium">{{ page.data.section }}</div>
@@ -17,7 +18,7 @@
 					<ul class="px-0.5 last-of-type:mb-0 mb-8">
 						<li v-for="page in this.subSectionPages.data" class="my-1.5 flex">
 							<a :class="{'text-white hover:text-gray-200 font-semibold bg-[#135aae]': isSameRoute(page.path), 'text-gray-600 hover:text-[#2C6288]': !isSameRoute(page.path) }"
-							   :href="page.path"
+							   :href="route('page.view', page.path) + '/'"
 							   class="relative duration-300 flex w-full rounded-md cursor-pointer items-centerp px-2 py-1 text-left text-sm">{{
 									page.title
 								}}</a>
@@ -27,8 +28,10 @@
 
 			</nav>
 		</div>
+
+
 		<nav class="order-last hidden w-56 shrink-0 lg:block">
-			<div class="sticky top-[126px] h-[calc(100vh-121px)]">
+			<div v-if="headerNavs.length > 0" class="sticky top-[126px] h-[calc(100vh-121px)]">
 				<div class="text-gray-1000 mb-2 text-md font-medium">На этой странице</div>
 				<ul class="styled-scrollbar max-h-[70vh] space-y-1.5 overflow-y-auto py-2 text-sm">
 					<li class="anchor-li" v-for="pageNav in headerNavs">
@@ -56,7 +59,7 @@
 								<ol v-if="breadcrumbs" class="flex items-center whitespace-nowrap min-w-0"
 									aria-label="Breadcrumb">
 									<li class="text-sm">
-										<a class="flex items-center text-gray-500 hover:text-blue-600" href="/">
+										<span class="flex items-center text-gray-500 hover:text-blue-600">
 											Главная
 											<svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400"
 												 width="16" height="16"
@@ -64,10 +67,10 @@
 												<path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
 													  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 											</svg>
-										</a>
+										</span>
 									</li>
 									<li class="text-sm">
-										<a class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
+										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
 											{{ this.breadcrumbs.mainSection }}
 											<svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400"
 												 width="16" height="16"
@@ -75,10 +78,10 @@
 												<path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
 													  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 											</svg>
-										</a>
+										</span>
 									</li>
 									<li class="text-sm">
-										<a class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
+										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
 											{{ this.breadcrumbs.subSection }}
 											<svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400"
 												 width="16" height="16"
@@ -86,18 +89,18 @@
 												<path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
 													  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 											</svg>
-										</a>
+										</span>
 									</li>
 									<li class="text-sm">
-										<a class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
+										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
 											{{ this.breadcrumbs.page }}
-										</a>
+										</span>
 									</li>
 								</ol>
 								<ol v-if="!breadcrumbs" class="flex items-center whitespace-nowrap min-w-0"
 									aria-label="Breadcrumb">
 									<li class="text-sm">
-										<a class="flex items-center text-gray-500 hover:text-blue-600" href="/">
+										<span class="flex items-center text-gray-500 hover:text-blue-600" href="/">
 											Главная
 											<svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400"
 												 width="16" height="16"
@@ -105,12 +108,12 @@
 												<path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
 													  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 											</svg>
-										</a>
+										</span>
 									</li>
 									<li class="text-sm">
-										<a class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
+										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
 											{{ this.page.data.title }}
-										</a>
+										</span>
 									</li>
 								</ol>
 							</div>
@@ -124,21 +127,22 @@
 
 				<div id="scrollspy" class="space-y-5 md:space-y-5">
 					<template v-for="block in blocksWithSlideNumber">
-						<div class="smooth-emerging" v-if="block.type === 'image'">
-							<figure>
+						<div v-if="block.type === 'image'">
+							<figure :class="block.data.withBackground ? 'bg-gray-100 rounded-lg' : ''">
 								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"
 									 :src="block.data.file.url"
-									 class="w-full max-h-[350px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition"
+									 :class="block.data.withBackground ? 'rounded-none' : 'w-full'"
+									 class="mx-auto max-h-[350px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition"
 									 :alt="block.data.caption">
 								<figcaption class="mt-3 text-sm text-center text-gray-500">
 									{{ block.data.caption }}
 								</figcaption>
 							</figure>
 						</div>
-						<div class="smooth-emerging" v-if="block.type === 'header'">
+						<div v-if="block.type === 'header'">
 							<h2 :id="generateSlug(block.data.text)" class="font-bold text-xl mt-10">{{ block.data.text }}</h2>
 						</div>
-						<div class="smooth-emerging" v-if="block.type === 'paragraph'">
+						<div v-if="block.type === 'paragraph'">
 							<p v-html="block.data.text"
 							   class="text-[16px] text-gray-700  leading-7"></p>
 						</div>
@@ -149,7 +153,7 @@
 									v-html="item"></li>
 							</ul>
 						</div>
-						<div class="smooth-emerging" v-if="block.type === 'attaches'">
+						<div v-if="block.type === 'attaches'">
 							<div class="flex border rounded-lg px-4 py-2 items-center justify-between">
 								<div class="flex items-center">
 									<div class="w-[35px] h-[35px] bg-black flex justify-center items-center rounded-xl mr-2">
@@ -175,7 +179,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="smooth-emerging" v-if="block.type === 'linkTool'">
+						<div v-if="block.type === 'linkTool'">
 							<div v-if="block.data.meta.type === 'post'" class="w-full mx-auto">
 								<a class="group relative block rounded-xl dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" :href="block.data.link">
 										<div class="flex-shrink-0 relative w-full rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:w-full before:h-full before:bg-gradient-to-t before:from-gray-900/[.7] before:z-[1]">
@@ -321,6 +325,7 @@ import MainNavbar from "@/Navbars/MainNavbar.vue";
 import ClientFooterDown from "@/Components/ClientFooterDown.vue";
 import { Head } from '@inertiajs/vue3'
 import slugify from "slugify";
+import axios from "axios";
 
 
 export default {
@@ -389,7 +394,8 @@ export default {
 		},
 		scrollToTop() {
 			window.scrollTo(0, 0)
-		}
+		},
+
 
 	},
 	mounted() {
@@ -397,20 +403,8 @@ export default {
 
 		this.editorImages = this.blocksWithSlideNumber.filter(block => block.type === 'image').map(block => block.data.file.url);
 
-		const links = document.querySelectorAll('a:not([href^="#"]):not([download])');
 
-		links.forEach(link => {
-			link.addEventListener('click', (event) => {
-				// Отменяем стандартное поведение браузера при клике на ссылку
-				event.preventDefault();
 
-				// Получаем URL ссылки
-				const url = link.getAttribute('href');
-
-				// Переходим на новую страницу с помощью pushState()
-				this.$inertia.visit(url)
-			});
-		});
 
 		const headings = document.querySelectorAll('h2');
 		const visor = document.querySelector('#visor');
@@ -457,11 +451,10 @@ export default {
 </script>
 
 <style scoped>
-.smooth-emerging {
-	animation: fade linear both !important;
-	animation-timeline: view() !important;
-	animation-range: entry 10% cover 20% !important;
-}
+
+
+
+
 
 
 @keyframes fade {

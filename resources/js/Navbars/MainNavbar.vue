@@ -34,7 +34,7 @@
                                                             </div>
 
                                                             <template v-for="page in subsection.pages">
-                                                                <Link :class="{'text-[#135aae] hover:text-gray-800 font-semibold ' : isSameRoute(page.path), 'text-gray-800 hover:text-[#2C6288]' : !isSameRoute(page.path) }" class="flex items-center gap-x-2" :href="page.path">
+                                                                <Link :class="{'text-[#135aae] hover:text-gray-800 font-semibold ' : isSameRoute(page.path), 'text-gray-800 hover:text-[#2C6288]' : !isSameRoute(page.path) }" class="flex items-center gap-x-2" :href="route('page.view', page.path) + '/'">
                                                                     <div class="grow">
                                                                         <p>{{ page.title }}</p>
                                                                     </div>

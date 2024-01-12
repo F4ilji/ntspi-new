@@ -6,7 +6,7 @@ services:
       - ./:/var/www
       - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
     ports:
-      - "8123:80"
+      - "80:80"
     container_name: ntspi-nginx
     depends_on:
       - app
@@ -17,3 +17,15 @@ services:
     volumes:
       - ./:/var/www
     container_name: ntspi-php
+  postgres:
+    image: postgres:latest
+    restart: always
+    container_name: ntspi-db
+    volumes:
+      - "./sourcefiles/postgres:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=ntspi_db
+    ports:
+      - "5432:5432"

@@ -10,7 +10,6 @@
 				<AdminIndexTableHead>
 					<AdminIndexTableRow :name="'ID'"/>
 					<AdminIndexTableRow :name="'Название'"/>
-					<AdminIndexTableRow :name="'Количество подразделов'"/>
 					<AdminIndexTableRow :name="'Дата создания'"/>
 					<th scope="col" class="px-6 py-3 text-right"></th>
 				</AdminIndexTableHead>
@@ -19,7 +18,6 @@
 						<tr>
 							<AdminIndexTableCell :value="mainSection.id"/>
 							<AdminIndexTableCell :value="mainSection.title" :text-limit-value="20"/>
-							<AdminIndexTableCell :value="mainSection.subSections.length" :text-limit-value="20"/>
 							<AdminIndexTableCell :value="mainSection.created_at"/>
 							<AdminIndexTableButtonGroup>
 								<AdminIndexTableDropdownButton :title="'Действия'">
