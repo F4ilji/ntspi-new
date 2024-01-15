@@ -18,8 +18,11 @@ class SubSectionController extends Controller
 
     public function create()
     {
-        $pages = Page::query()->where('sub_section_id', '=', null)
-            ->where('is_visible', '=', 1)->get();
+        $pages = Page::query()
+            ->where('sub_section_id', '=', null)
+            ->where('is_visible', '=', 1)
+            ->where('title', '!=', null)
+            ->get();
         return Inertia::render('AdminPanel/SubSection/Create', compact('pages'));
     }
 
@@ -44,6 +47,7 @@ class SubSectionController extends Controller
             ->orWhere(function ($query) {
                 $query->where('sub_section_id', null);
                 $query->where('is_visible', 1);
+                $query->where('title', '!=', null);
             })->get();
         $page_ids = Page::query()->where('sub_section_id', '=', $subSection->id)->pluck('id');
         $subSection = new SubSectionResource($subSection);
