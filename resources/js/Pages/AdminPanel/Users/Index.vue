@@ -15,7 +15,7 @@
 					<th scope="col" class="px-6 py-3 text-right"></th>
 				</AdminIndexTableHead>
 				<AdminIndexTableBody>
-					<template v-for="user in users.data">
+					<template v-for="user in users.data" :key="user.id">
 						<tr>
 							<AdminIndexTableCell :value="user.id"/>
 							<AdminIndexTableCell :value="user.name" :text-limit-value="20"/>

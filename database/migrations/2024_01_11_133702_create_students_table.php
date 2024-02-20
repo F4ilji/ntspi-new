@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('middleName')->nullable();
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('position')->nullable();
             $table->string('education');
             $table->string('vk_link')->nullable();

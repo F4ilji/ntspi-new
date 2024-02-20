@@ -35,7 +35,6 @@ class MainSectionController extends Controller
         $mainSection = MainSection::create($data);
         SubSection::whereIn('id', $subSection_ids)->update(['main_section_id' => $mainSection->id]);
         return redirect()->route('admin.mainSection.index');
-
     }
 
     public function edit(MainSection $mainSection)

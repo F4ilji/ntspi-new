@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \App\Http\Controllers\PostController;
+use App\Http\Controllers\StudentController;
+use App\Models\Student;
 
 /*
 |--------------------------------------------------------------------------
@@ -187,6 +189,18 @@ Route::middleware('access-check')->group(function () {
             Route::patch('/{division}', [DivisionController::class, 'update'])->name('admin.division.update');
             Route::delete('/{division}', [DivisionController::class, 'destroy'])->name('admin.division.destroy');
         });
+
+        Route::prefix('students')->group(function () {
+            Route::get('/', [StudentController::class, 'index'])->name('admin.student.index');
+            Route::get('/create', [StudentController::class, 'create'])->name('admin.student.create');
+            Route::get('/{student}', [StudentController::class, 'show'])->name('admin.student.show');
+            Route::post('/', [StudentController::class, 'store'])->name('admin.student.store');
+            Route::get('/{student}/edit', [StudentController::class, 'edit'])->name('admin.student.edit');
+            Route::patch('/{student}', [StudentController::class, 'update'])->name('admin.student.update');
+            Route::delete('/{student}', [StudentController::class, 'destroy'])->name('admin.student.destroy');
+        });
+
+
     });
 
     Route::get('/schedule', [ScheduleController::class, 'clientIndex'])->name('client.schedule');
@@ -195,8 +209,8 @@ Route::middleware('access-check')->group(function () {
 
     Route::get('/persons', [PersonController::class, 'index'])->name('client.person.index');
     Route::get('/persons/{userDetail}', [PersonController::class, 'show'])->name('client.person.show');
+    Route::get('/students/{student}', [StudentController::class, 'show'])->name('client.student.show')->middleware('auth');
     Route::get('/news/{slug}', ClientPostController::class)->name('client.post.show');
-
 
     Route::get('{path}', [PageController::class, 'render'])->where('path', '[0-9,a-z,/,-]+')->name('page.view');
 

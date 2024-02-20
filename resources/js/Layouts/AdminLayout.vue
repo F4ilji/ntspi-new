@@ -83,6 +83,10 @@
 					<AdminSubListItem :title="'Все пользователи'" :route-name="'admin.user.index'" />
 					<AdminSubListItem :title="'Добавить'" :route-name="'admin.user.create'" />
 				</AdminListItem>
+                <AdminListItem :title="'Студенты'">
+					<AdminSubListItem :title="'Все пользователи'" :route-name="'admin.student.index'" />
+					<AdminSubListItem :title="'Добавить'" :route-name="'admin.student.create'" />
+				</AdminListItem>
 
             </ul>
         </nav>

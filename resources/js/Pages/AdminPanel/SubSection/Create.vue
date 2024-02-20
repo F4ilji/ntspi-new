@@ -6,7 +6,6 @@
 				<AdminFormInput class="mb-4" v-model="form.title" :error="form.errors.title" :placeholder="'Заголовок раздела'" />
 				<AdminFormList class="mb-4" :label="'Добавить страницы'" :items="this.pages" @get-data="getIds"/>
 				<AdminFormButton v-bind="$attrs" type="submit" :title="'Создать подраздел'" />
-				{{ this.form.page_ids }}
 			</form>
 		</AdminFormLayout>
 	</AdminLayout>

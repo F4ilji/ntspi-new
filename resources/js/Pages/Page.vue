@@ -16,7 +16,7 @@
 				<div class="text-gray-1000 mb-2 text-md font-medium">{{ page.data.section }}</div>
 				<div class="flex gap-x-1">
 					<ul class="px-0.5 last-of-type:mb-0 mb-8">
-						<li v-for="page in this.subSectionPages.data" class="my-1.5 flex">
+						<li v-for="page in this.subSectionPages.data" :key="page.id" class="my-1.5 flex">
 							<a :class="{'text-white hover:text-gray-200 font-semibold bg-[#135aae]': isSameRoute(page.path), 'text-gray-600 hover:text-[#2C6288]': !isSameRoute(page.path) }"
 							   :href="route('page.view', page.path) + '/'"
 							   class="relative duration-300 flex w-full rounded-md cursor-pointer items-centerp px-2 py-1 text-left text-sm">{{
@@ -34,7 +34,7 @@
 			<div v-if="headerNavs.length > 0" class="sticky top-[126px] h-[calc(100vh-121px)]">
 				<div class="text-gray-1000 mb-2 text-md font-medium">На этой странице</div>
 				<ul class="styled-scrollbar max-h-[70vh] space-y-1.5 overflow-y-auto py-2 text-sm">
-					<li class="anchor-li" v-for="pageNav in headerNavs">
+					<li class="anchor-li" v-for="pageNav in headerNavs" :key="pageNav.id">
 						<a :class="{ 'translate-x-2 text-[#135aae]' : currentNavSection === generateSlug(pageNav.text), 'bg-transperant text-gray-600 hover:text-gray-900' : currentNavSection !== generateSlug(pageNav.text) }"
 						   class="duration-150 block py-1 px-2 leading-[1.6] rounded-md"
 						   :href="'#' + generateSlug(pageNav.text)">{{ pageNav.text }}</a>
@@ -50,7 +50,7 @@
 				</ul>
 			</div>
 		</nav>
-		<article class="w-full min-w-0 mt-4 max-w-6xl px-1 md:px-6" style="">
+		<article class="w-full min-w-0 mt-1 max-w-6xl px-1 md:px-6" style="">
 			<div class="space-y-5 md:space-y-5">
 				<div class="flex justify-between pb-4 items-center mb-6">
 					<div class="flex w-full sm:items-center gap-x-5 sm:gap-x-3">
@@ -126,7 +126,7 @@
 				</div>
 
 				<div id="scrollspy" class="space-y-5 md:space-y-5">
-					<template v-for="block in blocksWithSlideNumber">
+					<template v-for="block in blocksWithSlideNumber" :key="block.id">
 						<div v-if="block.type === 'image'">
 							<figure :class="block.data.withBackground ? 'bg-gray-100 rounded-lg' : ''">
 								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"
@@ -150,7 +150,8 @@
 							<ul class="list-outside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
 								<li class="ml-5 text-[16px] mt-2 text-gray-700  leading-7 smooth-emerging"
 									v-for="item in block.data.items"
-									v-html="item"></li>
+									v-html="item" :key="item.id">
+                                </li>
 							</ul>
 						</div>
 						<div v-if="block.type === 'attaches'">
@@ -215,7 +216,7 @@
 									</a>
 							</div>
 							<!-- End Card Blog -->
-							<div v-if="block.data.meta.type === 'person'" class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-gray-200 dark:bg-slate-900 dark:border-gray-700">
+							<div v-if="block.data.meta.type === 'student'" class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-gray-200 dark:bg-slate-900 dark:border-gray-700">
 								<div class="flex items-center gap-x-4">
 									<img loading="lazy" class="rounded-xl w-[150px]" :src="block.data.meta.data.photo" alt="Image Description">
 									<div class="grow">
@@ -223,10 +224,10 @@
 											{{ block.data.meta.title }}
 										</Link>
 										<p class="text-xs text-gray-500 mt-2">
-											{{ block.data.meta.data.administrativePosition }} / {{ block.data.meta.data.educatorPosition }}
+											{{ block.data.meta.data.position }}
 										</p>
 										<p class="text-xs text-gray-500 mt-2">
-											{{ block.data.meta.data.contactPhone }} / {{ block.data.meta.data.contactEmail }}
+											{{ block.data.meta.data.contactEmail }} / <a :href="block.data.meta.data.vk_link">Вконтакте</a>
 										</p>
 									</div>
 								</div>
@@ -264,7 +265,8 @@
 												:class="{ 'list-disc': block.data.style === 'unordered'  }">
 												<li class="ml-5 text-[16px] text-gray-700  leading-loose"
 													v-for="item in block.data.items"
-													v-html="item"></li>
+													v-html="item" :key="item.id">
+                                                </li>
 											</ul>
 										</div>
 										<div v-if="block.type === 'attaches'">

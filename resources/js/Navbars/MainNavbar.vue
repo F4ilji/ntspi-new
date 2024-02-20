@@ -3,7 +3,9 @@
         <nav class="max-w-screen-xl w-full mx-auto px-4" aria-label="Global">
             <div class="relative md:flex md:items-center md:justify-between">
                 <div class="flex items-center justify-between">
-                    <a class="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/" aria-label="Brand">НТГСПИ</a>
+                    <a class="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/" aria-label="Brand">
+                        <img class="max-w-[300px]" src="/logos/ntspi-logo.svg" alt="">
+                    </a>
                     <div class="md:hidden">
                         <button type="button" class="hs-collapse-toggle flex justify-center items-center w-9 h-9 text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
                             <svg class="hs-collapse-open:hidden flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
@@ -16,7 +18,7 @@
                     <div class="overflow-hidden overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500">
                         <div class="flex flex-col gap-x-0 mt-5 divide-y divide-dashed divide-gray-200 md:flex-row md:items-center md:justify-end md:gap-x-7 md:mt-0 md:ps-7 md:divide-y-0 md:divide-solid dark:divide-gray-700">
 
-                            <template v-for="section in this.sections.data">
+                            <template v-for="section in this.sections.data" :key="section.id">
                                 <div class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] py-3 md:py-6">
                                     <button type="button" class="active:text-blue-600 flex items-center w-full text-gray-800 hover:text-gray-600 font-medium dark:text-gray-200 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                                         {{ section.title }}
@@ -25,7 +27,7 @@
                                     <div class="hs-dropdown-menu transition-opacity duration-150 md:duration-500 hs-dropdown-open:opacity-100 opacity-0 w-full hidden z-10 top-full start-0 min-w-[15rem] bg-white md:shadow-2xl rounded-lg py-2 md:p-4 dark:bg-gray-800 dark:divide-gray-700 before:absolute before:-top-5 before:start-0 before:w-full before:h-5">
                                         <div class="grid grid-cols-2 md:grid-cols-10">
 
-                                            <template v-for="subsection in section.subSections">
+                                            <template v-for="subsection in section.subSections" :key="subsection.id">
                                                 <div class="md:col-span-3">
                                                     <div class="flex flex-col py-6 px-3 md:px-6">
                                                         <div class="space-y-4">
@@ -33,7 +35,7 @@
                                                                 <span class="text-xs font-bold uppercase text-gray-800 dark:text-gray-200">{{ subsection.title }}</span>
                                                             </div>
 
-                                                            <template v-for="page in subsection.pages">
+                                                            <template v-for="page in subsection.pages" :key="page.id">
                                                                 <a :class="{'text-[#135aae] hover:text-gray-800 font-semibold ' : isSameRoute(page.path), 'text-gray-800 hover:text-[#2C6288]' : !isSameRoute(page.path) }" class="flex items-center gap-x-2" :href="route('page.view', page.path) + '/'">
                                                                     <div class="grow">
                                                                         <p>{{ page.title }}</p>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
+use App\Http\Resources\StudentResource;
 use App\Http\Resources\UserDetailResource;
 use App\Models\Post;
+use App\Models\Student;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -46,8 +48,25 @@ class LinkToolController extends Controller
                     ]);
                 }
             }
-
         }
+
+        if ($request->input('url') == \route('client.student.show', ['student' => substr($request->input('url'), -1)])) {
+            $student = Student::find(substr($request->input('url'), -1));
+            return response()->json([
+                'success' => 1,
+                'link' => Str($request->input('url')),
+                'meta' => [
+                    'title' => $student->surname . ' '. $student->name . ' '. $student->middleName,
+                    'description' => $student->position,
+                    'image' => [
+                        'url' => $student->photo
+                    ],
+                    'type' => 'student',
+                    'data' => new StudentResource($student),
+                ]
+            ]);
+        }
+
         return false;
     }
 

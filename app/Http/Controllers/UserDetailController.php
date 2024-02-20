@@ -53,6 +53,7 @@ class UserDetailController extends Controller
             // Генерируем уникальное имя файла, чтобы избежать конфликтов
             $filename = md5(Carbon::now() . '_' . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
             // Сохраняем изображение в директорию public
+            ImageTool::configure(['driver' => 'imagick']);
             ImageTool::make($image)
                 ->resize(1200, null, function ($constraint) {
                     $constraint->aspectRatio();
@@ -63,6 +64,5 @@ class UserDetailController extends Controller
             // Генерируем URL для доступа к изображению
             return $path;
         }
-
     }
 }

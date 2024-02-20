@@ -98,7 +98,6 @@ class PageController extends Controller
         }
         $mainSections = MainSectionResource::collection(MainSection::all());
 
-
         if (isset($page->section)) {
             $subSectionPages = PageResource::collection($page->section->pages);
             $breadcrumbs = [

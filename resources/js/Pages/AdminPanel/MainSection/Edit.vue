@@ -6,7 +6,6 @@
 				<AdminFormInput class="mb-4" v-model="form.title" :error="form.errors.title" :placeholder="'Заголовок раздела'" />
 				<AdminFormList class="mb-4" :label="'Добавить подраздел'" :items="this.subSections" :checked_ids="this.form.subSection_ids" @get-data="getIds"/>
 				<AdminFormButton v-bind="$attrs" type="submit" :title="'Обновить раздел'" />
-				{{ this.form.subSection_ids }}
 			</form>
 		</AdminFormLayout>
 	</AdminLayout>

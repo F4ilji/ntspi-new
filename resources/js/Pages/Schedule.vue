@@ -16,7 +16,7 @@ export default {
 	props: [
 		'schedules',
 		'mainSections',
-		'searchRequest'
+		'searchRequest',
 	],
 	methods: {
 		search: debounce(function () {
@@ -36,7 +36,6 @@ export default {
 
 <template>
 	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
-
 
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<article class="w-full min-w-0 mt-4 px-1 md:px-6">
@@ -129,9 +128,8 @@ export default {
 								 class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
 								 aria-labelledby="hs-active-bordered-heading-one">
 								<div class="pb-4 px-5 grid gap-3 grid-cols-1">
-									<template v-for="subSchedule in schedule.subSchedules">
-										<a target="_blank" :href="subSchedule.path_file"
-										   class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+									<template v-for="subSchedule in schedule.subSchedules" :key="subSchedule.id">
+										<a target="_blank" :href="subSchedule.path_file" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
 											{{ subSchedule.name }}
 										</a>
 									</template>
