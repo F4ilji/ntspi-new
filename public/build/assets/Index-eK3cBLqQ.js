@@ -1,1 +1,0 @@
-import{A as o}from"./AdminLayout-ohe3ElHe.js";import{o as r,c as t}from"./app-I_nywxil.js";import"./_plugin-vue_export-helper-x3n3nnut.js";const s={__name:"Index",setup(e){return(a,c)=>(r(),t(o))}};export{s as default};

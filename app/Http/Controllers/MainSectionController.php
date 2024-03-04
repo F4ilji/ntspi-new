@@ -50,7 +50,7 @@ class MainSectionController extends Controller
     public function update(MainSection $mainSection, Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|unique:categories|max:50|min:5',
+            'title' => 'required|unique:main_sections|max:50|min:5',
             'subSection_ids' => 'array',
             'subSection_ids.*' => 'exists:sub_sections,id'
         ]);

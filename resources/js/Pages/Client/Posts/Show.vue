@@ -152,7 +152,7 @@ export default {
 						</div>
 					</div>
 
-					<template v-for="block in blocksWithSlideNumber">
+					<template v-for="block in blocksWithSlideNumber" :key="block.id">
 						<div v-if="block.type === 'image'">
 							<figure>
 								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)" :src="block.data.file.url" class="w-full max-h-[500px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition" :alt="block.data.caption">
@@ -166,7 +166,7 @@ export default {
 						</div>
 						<div class="" v-if="block.type === 'list'">
 							<ul class="list-inside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
-								<li class="text-[16px] text-gray-800 dark:text-gray-200 text-justify leading-7" v-for="item in block.data.items" v-html="item"></li>
+								<li class="text-[16px] text-gray-800 dark:text-gray-200 text-justify leading-7" v-for="item in block.data.items" v-html="item" :key="item.id"></li>
 							</ul>
 						</div>
 						<div v-if="block.type === 'attaches'">
@@ -216,7 +216,7 @@ export default {
 					</div>
 					<div class="p-4 overflow-y-auto">
 						<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-							<template v-for="(image, key) in galleryImages.slice()">
+							<template v-for="(image, key) in galleryImages.slice()" :key="key">
 								<div>
 									<img loading="lazy" @click="openGalleryImagesOnSlide(key + 1)" class="h-[200px] w-full object-cover rounded-lg hover:scale-[1.05] hover:opacity-95 hover:duration-200 transition" :src="image" alt="">
 								</div>

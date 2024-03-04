@@ -11,7 +11,14 @@ use Inertia\Inertia;
 
 class ClientPostController extends Controller
 {
-    public function __invoke($slug)
+    public function index()
+    {
+        $mainSections = MainSectionResource::collection(MainSection::all());
+        $posts = PostResource::collection(Post::query()->orderBy('id', 'desc')->paginate());
+        return Inertia::render('Client/Posts/Index', compact('mainSections', 'posts'));
+    }
+
+    public function show($slug)
     {
         $mainSections = MainSectionResource::collection(MainSection::all());
         $post = new PostResource(Post::where('slug', $slug)->firstOrFail());

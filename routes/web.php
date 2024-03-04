@@ -210,7 +210,8 @@ Route::middleware('access-check')->group(function () {
     Route::get('/persons', [PersonController::class, 'index'])->name('client.person.index');
     Route::get('/persons/{userDetail}', [PersonController::class, 'show'])->name('client.person.show');
     Route::get('/students/{student}', [StudentController::class, 'show'])->name('client.student.show')->middleware('auth');
-    Route::get('/news/{slug}', ClientPostController::class)->name('client.post.show');
+    Route::get('/news/{slug}', [ClientPostController::class, 'show'])->name('client.post.show');
+    Route::get('/news', [ClientPostController::class, 'index'])->name('client.post.index');
 
     Route::get('{path}', [PageController::class, 'render'])->where('path', '[0-9,a-z,/,-]+')->name('page.view');
 

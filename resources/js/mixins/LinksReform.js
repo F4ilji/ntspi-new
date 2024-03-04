@@ -8,7 +8,7 @@ export const linksReform = {
             return Array.from(links);
         },
         createReactiveLinks(links, hostname) {
-            return  links.filter(link => link.hostname === hostname).filter(link => !this.checkPathname(link.pathname));
+            return links.filter(link => link.hostname === hostname).filter(link => !this.checkPathname(link.pathname));
         },
         createStaticLinks(links, hostname) {
             return links.filter(link => link.hostname !== hostname);
