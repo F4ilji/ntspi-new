@@ -28,6 +28,7 @@ class StoreRequest extends FormRequest
             'code' => 'required|integer',
             'slug' => 'required|unique:pages,slug',
             'path' => 'required|unique:pages,path',
+            'search_data' => 'required|string'
         ];
     }
 }

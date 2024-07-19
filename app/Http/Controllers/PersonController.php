@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClientNavigationResource;
 use App\Http\Resources\MainSectionResource;
 use App\Http\Resources\UserDetailResource;
 use App\Http\Resources\UserResource;
@@ -16,12 +17,15 @@ class PersonController extends Controller
     public function index()
     {
         $persons = UserDetailResource::collection(UserDetail::all());
-        return Inertia::render('Client/Persons/Index', compact('persons'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('Client/Persons/Index', compact('persons', 'filters'));
     }
 
     public function show(UserDetail $userDetail)
     {
-        $mainSections = MainSectionResource::collection(MainSection::all());
+        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
         return Inertia::render('Client/Persons/Show', compact('userDetail', 'mainSections'));
     }
 }

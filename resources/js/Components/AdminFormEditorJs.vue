@@ -1,9 +1,9 @@
 <script>
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
-import AttachesTool from "@editorjs/attaches";
-import ImageTool from "@editorjs/image";
+// import EditorJS from "@editorjs/editorjs";
+// import Header from "@editorjs/header";
+// import List from "@editorjs/list";
+// import AttachesTool from "@editorjs/attaches";
+// import ImageTool from "@editorjs/image";
 import {data} from "autoprefixer";
 
 export default {
@@ -30,7 +30,7 @@ export default {
 			holder: this.$refs.editor,
 			minHeight: 150,
 			data: this.contentData,
-			placeholder: "Заполните новость",
+			placeholder: "Заполните контентом",
 			tools: {
 				header: {
 					class: Header,

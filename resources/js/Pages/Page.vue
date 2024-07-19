@@ -3,7 +3,10 @@
 		<title>{{ page.data.title }}</title>
 		<meta name="description" content="Your page description">
 	</Head>
-	<MainNavbar class="border-b" :sections="this.mainSections" />
+	<MainNavbar class="border-b" :sections="this.navigation" />
+
+
+
 
 
 
@@ -18,8 +21,8 @@
 					<ul class="px-0.5 last-of-type:mb-0 mb-8">
 						<li v-for="page in this.subSectionPages.data" :key="page.id" class="my-1.5 flex">
 							<a :class="{'text-white hover:text-gray-200 font-semibold bg-[#135aae]': isSameRoute(page.path), 'text-gray-600 hover:text-[#2C6288]': !isSameRoute(page.path) }"
-							   :href="route('page.view', page.path) + '/'"
-							   class="relative duration-300 flex w-full rounded-md cursor-pointer items-centerp px-2 py-1 text-left text-sm">{{
+								 :href="(page.is_url) ? page.path : route('page.view', page.path) + '/'"
+							   class="relative duration-300 flex w-full rounded-md cursor-pointer items-center px-2 py-1 text-left text-sm">{{
 									page.title
 								}}</a>
 						</li>
@@ -93,7 +96,7 @@
 									</li>
 									<li class="text-sm">
 										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
-											{{ this.breadcrumbs.page }}
+											{{ textLimit(this.breadcrumbs.page, 40) }}
 										</span>
 									</li>
 								</ol>
@@ -122,38 +125,34 @@
 				</div>
 
 				<div class="space-y-3">
-					<h1 class="text-2xl font-bold md:text-3xl">{{ page.data.title }}</h1>
+					<h1 class="text-2xl mb-10 font-bold md:text-3xl">{{ page.data.title }}</h1>
 				</div>
 
-				<div id="scrollspy" class="space-y-5 md:space-y-5">
-					<template v-for="block in blocksWithSlideNumber" :key="block.id">
+				<div id="page-area" class="space-y-5 md:space-y-5">
+					<template v-for="block in this.blocks" :key="block.id">
+<!--						<div v-if="block.type === 'image'">-->
+<!--							<figure :class="block.data.withBackground ? 'bg-gray-100 rounded-lg' : ''">-->
+<!--								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"-->
+<!--									 :src="block.data.file.url"-->
+<!--									 :class="block.data.withBackground ? 'rounded-none' : 'w-full'"-->
+<!--									 class="mx-auto max-h-[350px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition"-->
+<!--									 :alt="block.data.caption">-->
+<!--								<figcaption class="mt-3 text-sm text-center text-gray-500">-->
+<!--									{{ block.data.caption }}-->
+<!--								</figcaption>-->
+<!--							</figure>-->
+<!--						</div>-->
+						<div v-if="block.type === 'heading'">
+							<h2 :id="generateSlug(block.data.content)" class="font-bold text-xl">{{ block.data.content }}</h2>
+						</div>
 						<div v-if="block.type === 'image'">
-							<figure :class="block.data.withBackground ? 'bg-gray-100 rounded-lg' : ''">
-								<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"
-									 :src="block.data.file.url"
-									 :class="block.data.withBackground ? 'rounded-none' : 'w-full'"
-									 class="mx-auto max-h-[350px] object-cover rounded-lg hover:opacity-95 hover:duration-200 transition"
-									 :alt="block.data.caption">
-								<figcaption class="mt-3 text-sm text-center text-gray-500">
-									{{ block.data.caption }}
-								</figcaption>
-							</figure>
+							<template v-for="img in block.data.url">
+								<img loading="lazy" class="mx-auto object-cover rounded-sm hover:opacity-95 hover:duration-200 transition" :src="'/storage/' + img" alt="">
+							</template>
 						</div>
-						<div v-if="block.type === 'header'">
-							<h2 :id="generateSlug(block.data.text)" class="font-bold text-xl mt-10">{{ block.data.text }}</h2>
-						</div>
-						<div v-if="block.type === 'paragraph'">
-							<p v-html="block.data.text"
-							   class="text-[16px] text-gray-700  leading-7"></p>
-						</div>
-						<div v-if="block.type === 'list'">
-							<ul class="list-outside" :class="{ 'list-disc': block.data.style === 'unordered'  }">
-								<li class="ml-5 text-[16px] mt-2 text-gray-700  leading-7 smooth-emerging"
-									v-for="item in block.data.items"
-									v-html="item" :key="item.id">
-                                </li>
-							</ul>
-						</div>
+						<div class="paragraph-container" v-html="block.data.content" v-if="block.type === 'paragraph'" />
+
+
 						<div v-if="block.type === 'attaches'">
 							<div class="flex border rounded-lg px-4 py-2 items-center justify-between">
 								<div class="flex items-center">
@@ -237,70 +236,6 @@
 							</div>
 						</div>
 
-						<div class="flex gap-x-5 justify-between" v-if="block.type === 'columns'">
-							<div class="w-1/2" v-for="col in block.data.cols" :key="col.time">
-								<div class="gap-5" v-if="col.blocks && col.blocks.length > 0">
-									<div v-for="block in col.blocks" :key="block.id">
-										<div v-if="block.type === 'image'">
-											<figure>
-												<img loading="lazy" @click="openEditorImagesOnSlide(block.slideNumber)"
-													 :src="block.data.file.url"
-													 class="w-full h-[300px] object-cover rounded-xl hover:opacity-95 hover:duration-200 transition"
-													 :alt="block.data.caption">
-												<figcaption class="mt-3 text-sm text-center text-gray-500">
-													{{ block.data.caption }}
-												</figcaption>
-											</figure>
-										</div>
-										<div v-if="block.type === 'header'">
-											<h2 :id="'header_' + block.id" class="font-bold text-xl mt-10">
-												{{ block.data.text }}</h2>
-										</div>
-										<div v-if="block.type === 'paragraph'">
-											<p v-html="block.data.text"
-											   class="text-[16px] text-gray-700  leading-relaxed"></p>
-										</div>
-										<div v-if="block.type === 'list'">
-											<ul class="list-outside"
-												:class="{ 'list-disc': block.data.style === 'unordered'  }">
-												<li class="ml-5 text-[16px] text-gray-700  leading-loose"
-													v-for="item in block.data.items"
-													v-html="item" :key="item.id">
-                                                </li>
-											</ul>
-										</div>
-										<div v-if="block.type === 'attaches'">
-											<div class="flex border rounded-lg px-4 py-2 items-center justify-between">
-												<div class="flex items-center">
-													<div class="w-[35px] h-[35px] bg-black flex justify-center items-center rounded-xl mr-2">
-														<svg xmlns="http://www.w3.org/2000/svg" fill="none"
-															 viewBox="0 0 24 24" stroke-width="1.5"
-															 stroke="currentColor" class="w-6 h-6">
-															<path stroke-linecap="round" stroke-linejoin="round"
-																  d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
-																  stroke="white"/>
-														</svg>
-													</div>
-													<div>{{ block.data.title }}</div>
-												</div>
-
-												<a :href="block.data.file.url" download type="button"
-												   class="w-[35px] h-[35px] flex bg-gray-100 rounded-lg justify-center items-center hover:bg-gray-200 duration-200">
-													<svg xmlns="http://www.w3.org/2000/svg" fill="none"
-														 viewBox="0 0 24 24" stroke-width="1.5"
-														 stroke="currentColor" class="w-6 h-6">
-														<path stroke-linecap="round" stroke-linejoin="round"
-															  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
-													</svg>
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-
-						</div>
 					</template>
 				</div>
 
@@ -334,22 +269,21 @@ export default {
 	name: "Page",
 	data() {
 		return {
-			blocks: this.blocksWithSlideNumber,
+			blocks: this.page.data.content,
 			userData: this.$page.props.auth.user,
 			toggler: false,
 			editorImages: [],
 			galleryImages: [],
 			slide: 1,
-			pageNavs: this.getPageNavs,
 			currentNavSection: null,
 			scrollTop: false,
-			headerNavs: this.page.data.content.blocks.filter(block => block.type === 'header').map(block => ({ id: block.id, text: block.data.text }))
+			headerNavs: this.page.data.content.filter(block => block.type === 'heading').map(block => ({ id: block.data.id, text: block.data.content }))
 		}
 	},
 
 	props: [
+		'navigation',
 		'page',
-		'mainSections',
 		'subSectionPages',
 		'breadcrumbs'
 	],
@@ -403,7 +337,7 @@ export default {
 	mounted() {
 		window.addEventListener("scroll", this.onScroll)
 
-		this.editorImages = this.blocksWithSlideNumber.filter(block => block.type === 'image').map(block => block.data.file.url);
+		// this.editorImages = this.blocksWithSlideNumber.filter(block => block.type === 'image').map(block => block.data.file.url);
 
 
 
@@ -438,24 +372,21 @@ export default {
 	},
 
 	computed: {
-		blocksWithSlideNumber() {
-			let slideNumber = 1;
-			return this.page.data.content.blocks.map((block) => {
-				if (block.type === "image") {
-					block.slideNumber = slideNumber;
-					slideNumber++;
-				}
-				return block;
-			});
-		},
 	}
 }
 </script>
 
-<style scoped>
+<style>
 
 
+.paragraph-container a {
+	@apply text-[#1E57A3];
+	@apply underline;
+}
 
+.paragraph-container p {
+	@apply mb-2
+}
 
 
 

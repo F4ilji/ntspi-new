@@ -15,7 +15,10 @@ class UserController extends Controller
     public function index()
     {
         $users = UserResource::collection(User::all());
-        return Inertia::render('AdminPanel/Users/Index', compact('users'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/Users/Index', compact('users', 'filters'));
     }
 
     public function show(int $id)

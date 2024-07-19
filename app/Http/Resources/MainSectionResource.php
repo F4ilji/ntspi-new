@@ -17,7 +17,7 @@ class MainSectionResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'subSections' => SubSectionResource::collection($this->subSections),
+            'subSections' => SubSectionResource::collection($this->subSections->sortBy('sort')),
             'created_at' => $this->created_at,
         ];
     }

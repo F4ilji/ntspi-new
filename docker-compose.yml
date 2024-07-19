@@ -12,20 +12,21 @@ services:
       - app
   app:
     build:
-        context: .
-        dockerfile: _docker/app/Dockerfile
+      context: .
+      dockerfile: _docker/app/Dockerfile
     volumes:
       - ./:/var/www
     container_name: ntspi-php
-  postgres:
-    image: postgres:latest
+  db:
+    image: mysql:8.0
     restart: always
     container_name: ntspi-db
     volumes:
-      - "./sourcefiles/postgres:/var/lib/postgresql/data"
+      - "./sourcefiles/mysql:/var/lib/mysql"
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=ntspi_db
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=ntspi_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=secret
     ports:
-      - "5432:5432"
+      - "3306:3306"

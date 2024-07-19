@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\PostStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Tags\HasTags;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTags;
 
     protected $guarded = false;
 
@@ -18,13 +20,10 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function authors()
-    {
-        return $this->hasMany(AuthorPost::class, 'post_id', 'id');
-    }
-
-    public function gallery() {
-        return $this->hasOne(Gallery::class);
-    }
-
+    protected $casts = [
+        'content' => 'array',
+        'authors' => 'array',
+        'status' => PostStatus::class,
+        'images' => 'array'
+    ];
 }

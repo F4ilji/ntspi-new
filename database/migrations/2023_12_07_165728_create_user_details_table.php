@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('middleName')->nullable();
             $table->string('photo')->nullable();
             $table->string('academicTitle')->nullable();
-            $table->string('administrativePosition')->nullable();
             $table->string('educatorPosition')->nullable();
             $table->string('education')->nullable();
             $table->text('awards')->nullable();

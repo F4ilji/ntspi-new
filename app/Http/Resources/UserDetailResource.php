@@ -21,7 +21,6 @@ class UserDetailResource extends JsonResource
             'middleName' => $this->middleName,
             'photo' => $this->photo,
             'academicTitle' => $this->academicTitle,
-            'administrativePosition' => $this->administrativePosition,
             'educatorPosition' => $this->educatorPosition,
             'education' => $this->education,
             'awards' => $this->awards,

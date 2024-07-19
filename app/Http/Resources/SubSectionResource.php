@@ -17,7 +17,7 @@ class SubSectionResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'pages' => PageResource::collection($this->pages),
+            'pages' => PageResource::collection($this->whenLoaded('pages')),
             'main_section' => $this->mainSection->title ?? null,
             'created_at' => $this->created_at->diffforhumans(),
         ];

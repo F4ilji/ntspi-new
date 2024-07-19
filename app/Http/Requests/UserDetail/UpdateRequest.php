@@ -26,7 +26,6 @@ class UpdateRequest extends FormRequest
             'surname' => 'required|string',
             'middleName' => 'nullable|string',
             'academicTitle' => 'nullable|string',
-            'administrativePosition' => 'nullable|string',
             'educatorPosition' => 'nullable|string',
             'education' => 'nullable|string',
             'awards' => 'nullable|string',

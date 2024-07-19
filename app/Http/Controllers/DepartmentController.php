@@ -16,7 +16,10 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = DepartmentResource::collection(Department::all());
-        return Inertia::render('AdminPanel/Departments/Index', compact('departments'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/Departments/Index', compact('departments', 'filters'));
     }
 
     public function create()

@@ -18,7 +18,7 @@ export default {
 #progress {
 	top: 0;
 	height: 2px;
-	background: #26ACB8;
+	background: #294F8C;
 	z-index: 99;
 	width: 100%;
 	position: fixed;

@@ -1,11 +1,11 @@
 <template>
-	<div class="sm:col-span-1">
+	<div class="sm:col-span-1 w-full">
 		<label for="hs-as-table-product-review-search" class="sr-only">Поиск</label>
 		<div class="relative">
 			<input autocomplete="off" @input="search" v-model="searchInput" type="text"
 				   id="hs-as-table-product-review-search"
 				   name="hs-as-table-product-review-search"
-				   class="py-2 px-3 pl-11 block w-full border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+				   class="py-2 px-3 pl-11 block flex-1 w-full border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
 				   placeholder="Поиск">
 			<div
 					class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-4">
@@ -20,31 +20,46 @@
 </template>
 
 <script>
-import {debounce} from "lodash/function.js";
+import { debounce } from "lodash/function.js";
 
 export default {
 	name: "AdminIndexSearch",
 	data() {
 		return {
-			searchInput: this.$page.props.filters,
+			searchInput: this.$page.props.filters.search,
 		}
 	},
 	methods: {
 		search: debounce(function () {
-			this.$inertia.reload({
+            if(this.searchInput == "") {
+                let url = new URL(window.location.href);
+                url.searchParams.delete('search');
+                let newUrl = url.toString();
+                this.$inertia.visit(newUrl,{
+				    method: 'get',
+				preserveState: true,
+				replace: true,
+			    });
+            } else {
+            let url = new URL(window.location.href);
+            url.searchParams.delete('page');
+            let newUrl = url.toString();
+			this.$inertia.visit(newUrl,{
 				method: 'get',
 				data: {
 					search: this.searchInput,
 				},
 				preserveState: true,
 				replace: true,
-			});
+			})
+            }
 		}, 500),
+        
 	},
 	props: [
-		'posts',
 		'filters'
 	],
+
 }
 </script>
 

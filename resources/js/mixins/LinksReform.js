@@ -29,9 +29,9 @@ export const linksReform = {
             });
         });
 
-        staticLinks.forEach(link => {
-            link.style.textDecoration = "underline";
-            link.style.color = '#C10020'
-        });
+        // staticLinks.forEach(link => {
+        //     link.style.textDecoration = "underline";
+        //     link.style.color = '#C10020'
+        // });
     }
 };

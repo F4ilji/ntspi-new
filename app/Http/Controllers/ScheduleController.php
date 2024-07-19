@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Schedule\StoreRequest;
+use App\Http\Resources\ClientNavigationResource;
 use App\Http\Resources\FacultyResource;
 use App\Http\Resources\MainSectionResource;
 use App\Http\Resources\ScheduleResource;
@@ -20,7 +21,10 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = ScheduleResource::collection(Schedule::query()->ExistSubSchedule()->orderBy('name')->paginate(10));
-        return Inertia::render('AdminPanel/Schedules/Index', compact('schedules'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/Schedules/Index', compact('schedules', 'filters'));
     }
 
     public function create()
@@ -46,7 +50,7 @@ class ScheduleController extends Controller
 
     public function clientIndex(Request $request)
     {
-        $mainSections = MainSectionResource::collection(MainSection::all());
+        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
 
         $schedules = collect();
 
@@ -59,7 +63,18 @@ class ScheduleController extends Controller
         }
 
         $searchRequest = request()->input('search');
-        return Inertia::render('Schedule', compact('schedules', 'mainSections', 'searchRequest'));
+
+        return Inertia::render('Client/Schedules/Index', compact('schedules', 'navigation', 'searchRequest'));
+    }
+
+    public function clientShow($id)
+    {
+        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
+
+        $schedule = Schedule::find($id);
+
+        $searchRequest = request()->input('search');
+        return Inertia::render('Client/Schedules/Show', compact('schedule', 'navigation'));
     }
 
 

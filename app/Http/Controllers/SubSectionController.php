@@ -13,7 +13,10 @@ class SubSectionController extends Controller
     public function index()
     {
         $subSections = SubSectionResource::collection(SubSection::paginate(10));
-        return Inertia::render('AdminPanel/SubSection/Index', compact('subSections'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/SubSection/Index', compact('subSections', 'filters'));
     }
 
     public function create()
@@ -38,7 +41,6 @@ class SubSectionController extends Controller
         $subSection = SubSection::create($data);
         Page::whereIn('id', $page_ids)->update(['sub_section_id' => $subSection->id]);
         return redirect()->route('admin.subSection.index');
-
     }
 
     public function edit(SubSection $subSection)

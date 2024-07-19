@@ -15,5 +15,4 @@ class MainSection extends Model
     {
         return $this->hasMany(SubSection::class);
     }
-
 }

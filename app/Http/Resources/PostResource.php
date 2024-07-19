@@ -19,11 +19,12 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'content' => json_decode($this->content),
+            'content' => $this->content,
             'is_published' => $this->is_published,
             'category' => $this->category,
             'authors' => $this->authors,
             'gallery' => new GalleryResource($this->gallery),
+            'reading_time' => $this->reading_time,
             'created_post' => $this->created_at->diffforhumans(),
         ];
     }

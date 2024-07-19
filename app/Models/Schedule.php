@@ -11,6 +11,10 @@ class Schedule extends Model
 
     protected $guarded = false;
 
+    protected $casts = [
+        'days' => 'array',
+    ];
+
     public function subSchedules()
     {
         return $this->hasMany(SubSchedule::class);

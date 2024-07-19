@@ -28,7 +28,8 @@ class StoreRequest extends FormRequest
             'is_published' => 'required|boolean',
             'category_id' => 'nullable|exists:categories,id',
             'author' => 'nullable|string|min:5',
-            'images' => 'nullable|array'
+            'images' => 'nullable|array',
+            'search_data' => 'required|string'
         ];
     }
 }

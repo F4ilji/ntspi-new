@@ -17,10 +17,11 @@ class PageResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => json_decode($this->content),
+            'content' => $this->content,
             'slug' => $this->slug,
             'code' => $this->code,
             'path' => $this->path,
+            'is_url' => $this->is_url,
             'section' => $this->section ? $this->section->title : null,
             'created_at' => $this->created_at->diffforhumans()
         ];

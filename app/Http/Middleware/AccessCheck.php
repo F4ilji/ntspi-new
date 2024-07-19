@@ -27,10 +27,13 @@ class AccessCheck
                 Page::create([
                     'path' => $route->uri,
                     'is_registered' => true,
+                    'is_url' => false,
+                    'searchable' => false,
                     'code' => 200
                 ]);
             };
         }
+
         $registeredRoute = Page::where('path', '=', $request->route()->uri)->where('is_registered', '=', true)->first();
         if ($registeredRoute->exists() === false) {
             return $next($request);

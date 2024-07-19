@@ -14,7 +14,10 @@ class FacultyController extends Controller
     public function index()
     {
         $faculties = FacultyResource::collection(Faculty::all());
-        return Inertia::render('AdminPanel/Faculties/Index', compact('faculties'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/Faculties/Index', compact('faculties', 'filters'));
     }
 
     public function create()

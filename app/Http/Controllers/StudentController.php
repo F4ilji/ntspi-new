@@ -21,7 +21,10 @@ class StudentController extends Controller
     public function index()
     {
         $students = StudentResource::collection(Student::paginate(10));
-        return Inertia::render('AdminPanel/Student/Index', compact('students'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/Student/Index', compact('students', 'filters'));
     }
 
     public function show(Student $student)

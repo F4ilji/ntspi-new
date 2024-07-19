@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Sleep;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,8 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        setlocale(LC_ALL, 'ru_RU.UTF-8');
+        setlocale(LC_TIME, 'ru_RU.UTF-8');
         Carbon::setLocale(config('app.locale'));
-        usleep(300000);
+        Model::preventLazyLoading(! app()->isProduction());
     }
 }

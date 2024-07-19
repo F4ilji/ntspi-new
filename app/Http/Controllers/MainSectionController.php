@@ -14,7 +14,10 @@ class MainSectionController extends Controller
     public function index()
     {
         $mainSections = MainSectionResource::collection(MainSection::paginate(10));
-        return Inertia::render('AdminPanel/MainSection/Index', compact('mainSections'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/MainSection/Index', compact('mainSections', 'filters'));
     }
 
     public function create()

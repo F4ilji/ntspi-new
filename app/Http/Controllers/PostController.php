@@ -33,7 +33,9 @@ class PostController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(request()->input('perPage', 9))
             ->withQueryString());
-        $filters = request()->input('search');
+        $filters = [
+            'search' => request()->input('search'),
+        ];
 
         return Inertia::render('AdminPanel/Posts/Index', compact('posts', 'filters'));
     }
@@ -60,7 +62,10 @@ class PostController extends Controller
             $count++;
             $data['slug'] = $original_slug . '-' . $count + 1;
         }
+
+
         $data['content'] = json_encode($data['content']);
+        $data['reading_time'] = $this->calculateReadingTime($data['search_data']);
         $author = $data['author'];
         $images = $data['images'];
         unset($data['author']);
@@ -127,6 +132,7 @@ class PostController extends Controller
             'content' => 'required|array',
             'content.blocks' => 'required|array|min:1',
             'category_id' => 'nullable|exists:categories,id',
+            'is_published' => 'boolean',
         ]);
         $data['slug'] = \Illuminate\Support\Str::slug($data['title'], '-');
         $data['content'] = json_encode($data['content']);
@@ -142,5 +148,28 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect()->route('admin.post.index');
+    }
+
+    private function calculateReadingTime(string $text): int
+    {
+
+        $text = "lorem ipsum - это текст - часто используемый в печати и вэб-дизайне lorem ipsum является стандартной для текстов на латинице с начала xvi века в то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов используя lorem ipsum для распечатки образцов lorem ipsum не только успешно пережил без заметных изменений пять веков но и перешагнул в электронный дизайн его популяризации в новое время послужили публикация листов letraset с образцами lorem ipsum в 60-х годах и в более недавнее время программы электронной вёрстки типа aldus pagemaker в шаблонах которых используется lorem ipsum lorem ipsum - это текст - часто используемый в печати и вэб-дизайне lorem ipsum является стандартной для текстов на латинице с начала xvi века в то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов используя lorem ipsum для распечатки образцов lorem ipsum не только успешно пережил без заметных изменений пять веков но и перешагнул в электронный дизайн его популяризации в новое время послужили публикация листов letraset с образцами lorem ipsum в 60-х годах и в более недавнее время программы электронной вёрстки типа aldus pagemaker в шаблонах которых используется lorem ipsum";
+        // Calculate the number of words in the text
+        $wordCount = str_word_count($text,0,"АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя");
+
+
+
+
+        // Calculate the average reading speed in words per minute
+        $wordsPerMinute = 120; // You can adjust this value based on your desired reading speed
+
+        // Calculate the reading time in minutes
+        $readingTime = $wordCount / $wordsPerMinute;
+
+        // Round the reading time to the nearest integer
+        $readingTime = round($readingTime);
+
+
+        return $readingTime;
     }
 }

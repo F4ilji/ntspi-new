@@ -22,7 +22,10 @@ class CategoryController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(request()->input('perPage', 9))
             ->withQueryString());
-        return Inertia::render('AdminPanel/Categories/Index', compact('categories'));
+        $filters = [
+            'search' => request()->input('search'),
+        ];
+        return Inertia::render('AdminPanel/Categories/Index', compact('categories', 'filters'));
     }
 
     public function create()

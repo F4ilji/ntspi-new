@@ -15,7 +15,7 @@ export default {
 	components: {ClientFooterDown, MainNavbar, Link},
 	props: [
 		'schedules',
-		'mainSections',
+		'navigation',
 		'searchRequest',
 	],
 	methods: {
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-	<MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
+	<MainNavbar class="border-b" :sections="this.navigation"></MainNavbar>
 
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<article class="w-full min-w-0 mt-4 px-1 md:px-6">
