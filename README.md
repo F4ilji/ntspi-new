@@ -1,7 +1,7 @@
 # NTSPI-NEW
 ### Клонируйте репозиторий с GitHub:
 
-```bash
+```git
 git clone https://github.com/F4ilji/ntspi-new.git
 ```
 
@@ -12,22 +12,26 @@ git clone https://github.com/F4ilji/ntspi-new.git
 cd ntspi-new
 ```
 Запустите контейнеры с помощью Docker Compose:
-```bash
+```docker
 docker-compose up -d
 ```
 
 ### Установка зависимостей
 Зайдите в контейнер ntspi-php:
-```bash
+```docker
 docker exec -it ntspi-php bash
 ```
 Установите зависимости Composer:
-```bash
+```composer
 composer install
 ```
 Установите зависимости NPM:
-```bash
+```npm
 npm install
+```
+Сгенерируйте новый ключ приложения:
+```php
+php artisan key:generate
 ```
 Создайте файл .env на основе .env.example:
 ```bash
@@ -47,6 +51,11 @@ DB_PASSWORD=secret
 Выполните миграции и заполнение базы данных:
 ```php
 php artisan migrate --seed
+```
+
+### Запуск js билдера
+```npm
+npm run dev
 ```
 ## License
 
