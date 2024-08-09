@@ -6,6 +6,7 @@ use App\Filament\Resources\AdmissionCampaignResource\Pages;
 use App\Filament\Resources\AdmissionCampaignResource\RelationManagers;
 use App\Models\AdmissionCampaign;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,7 +28,11 @@ class AdmissionCampaignResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')->label('Название')->required()->columnSpanFull(),
+                Forms\Components\Select::make('academic_year')->label('Академический год')->required()
+                    ->options(['2024' => '2024/2025', '2025' => '2025/2026']),
+                Forms\Components\Select::make('status')->label('Статус')->required()
+                    ->options(['1' => 'Активный', '2' => 'Архивный', '3' => 'Скрыт']),
             ]);
     }
 

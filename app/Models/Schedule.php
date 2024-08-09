@@ -25,9 +25,5 @@ class Schedule extends Model
         return $this->belongsTo(Faculty::class);
     }
 
-    public function scopeExistSubSchedule($query)
-    {
-        return $query->has('subSchedules');
-    }
 
 }

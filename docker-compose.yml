@@ -10,6 +10,7 @@ services:
     container_name: ntspi-nginx
     depends_on:
       - app
+
   app:
     build:
       context: .
@@ -17,6 +18,9 @@ services:
     volumes:
       - ./:/var/www
     container_name: ntspi-php
+    ports:
+      - '5173'
+
   db:
     image: mysql:8.0
     restart: always

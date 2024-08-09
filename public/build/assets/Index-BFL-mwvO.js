@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o,c as r,t as s}from"./app-DUiMEiTm.js";const t={name:"Index",props:{persons:{type:Array}}};function n(p,a,c,_,i,f){return o(),r("h1",null,s(this.persons),1)}const d=e(t,[["render",n]]);export{d as default};

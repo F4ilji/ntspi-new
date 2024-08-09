@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('faculties', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('abbreviation');
+            $table->string('slug');
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }

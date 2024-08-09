@@ -17,8 +17,10 @@ class DepartmentResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'faculty' => $this->faculty->title,
-            'created_at' => $this->diffForHumansRussian($this->created_at),
+            'faculty' => $this->faculty,
+            'slug' => $this->slug,
+            'workers' => ClientPersonDepartmentPreviewResource::collection($this->workers),
+            'teachers' => ClientPersonDepartmentTeachPreviewResource::collection($this->teachers)
         ];
     }
 }

@@ -11,8 +11,12 @@ class Division extends Model
 
     protected $guarded = false;
 
-    public function users()
+    protected $casts = [
+        'description' => 'array',
+    ];
+
+    public function workers()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'division_user')->withPivot(['administrativePosition', 'sort']);
     }
 }

@@ -16,6 +16,8 @@ class SubSectionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'subSections';
 
+    protected static ?string $title = 'Подразделы';
+
     public function form(Form $form): Form
     {
         return $form

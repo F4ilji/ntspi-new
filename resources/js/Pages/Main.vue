@@ -4,8 +4,8 @@
 		<meta name="description" content="Your page description">
 
 	</Head>
-	<MainPageNavBar :sections="this.navigation"></MainPageNavBar>
-	<ClientMainSlider class="" />
+	<MainPageNavBar :sections="$page.props.navigation"></MainPageNavBar>
+	<ClientMainSlider :slidersCarousel="sliders" class="" />
 	<section class="max-w-screen-xl w-full mx-auto px-4 py-3 pb-10">
 		<h2 class="text-brand-primary mb-[50px] mt-[80px] text-2xl font-semibold tracking-tight text-black lg:text-[32px] lg:leading-tight">Последние новости</h2>
 		<div class="grid gap-10 pb-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
@@ -15,10 +15,10 @@
 		</div>
 
 		<div class="flex justify-center">
-			<Link :href="route('client.post.index')" class="group mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-[#1A5AAF]">
+			<a :href="route('client.post.index')" class="group mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-[#1A5AAF]">
 				Все новости
 				<svg class="flex-shrink-0 size-4 transition ease-in-out group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-			</Link>
+			</a>
 		</div>
 
 		<h2 class="text-brand-primary mb-[50px] mt-[80px] text-2xl font-semibold tracking-tight text-black lg:text-[32px] lg:leading-tight">Мероприятия</h2>
@@ -88,91 +88,98 @@
 		<h2 class="text-brand-primary mb-[50px] mt-[80px] text-2xl font-semibold tracking-tight text-black lg:text-[32px] lg:leading-tight">Образование</h2>
 
 		<div class="grid gap-10 md:grid-cols-1 lg:gap-10 xl:grid-cols-2">
-			<div class="w-full bg-[#E9F2FE] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
-				<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
-					<span class="">Бакалавриат</span>
-					<svg class="flex-shrink-0 size-9 transition ease-in-out duration-300 group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-				</h3>
-				<p class="font-thin">Построй свою индивидуальную траекторию</p>
-				<div class="flex mt-[100px] gap-x-4">
-					<div class="">
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-				</div>
-			</div>
-			<div class="w-full bg-[#F5F5F5] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
-				<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
-					<span class="">Магистратура</span>
-					<svg class="flex-shrink-0 size-9 transition ease-in-out duration-300 group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-				</h3>
-				<p class="font-thin">Построй свою индивидуальную траекторию</p>
-				<div class="flex mt-[100px] gap-x-4">
-					<div class="">
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
+			<Link :href="route('client.program.bakalavriat')">
+				<div class="w-full bg-[#E9F2FE] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
+					<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
+						<span class="">Бакалавриат</span>
+						<svg class="flex-shrink-0 size-9 transition ease-in-out duration-300 group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+					</h3>
+					<p class="font-thin">Построй свою индивидуальную траекторию</p>
+					<div class="flex mt-[100px] gap-x-4">
+						<div class="">
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="w-full bg-[#F5F5F5] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
-				<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
-					<span class="">Дополнительное образование</span>
-					<svg class="flex-shrink-0 size-9 transition ease-in-out duration-300 group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-				</h3>
-				<p class="font-thin">Построй свою индивидуальную траекторию</p>
-				<div class="flex mt-[100px] gap-x-4">
-					<div class="">
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-				</div>
-			</div>
-			<div class="w-full bg-[#E9F2FE] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
-				<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
-					<span class="">Среднее профессиональное</span>
-					<svg class="flex-shrink-0 size-9 transition duration-300 ease-in-out group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-				</h3>
-				<p class="font-thin">Построй свою индивидуальную траекторию</p>
-				<div class="flex mt-[100px] gap-x-4">
-					<div class="">
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
-					</div>
-					<div>
-						<span class="block text-xl font-semibold">30</span>
-						<span class="block">Программ</span>
+			</Link>
+			<Link :href="route('client.program.magistratura')">
+				<div class="w-full bg-[#F5F5F5] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
+					<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
+						<span class="">Магистратура</span>
+						<svg class="flex-shrink-0 size-9 transition ease-in-out duration-300 group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+					</h3>
+					<p class="font-thin">Построй свою индивидуальную траекторию</p>
+					<div class="flex mt-[100px] gap-x-4">
+						<div class="">
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
 					</div>
 				</div>
-			</div>
-
+			</Link>
+			<Link :href="route('client.additionalEducation.index')">
+				<div class="w-full bg-[#F5F5F5] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
+					<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
+						<span class="">Дополнительное образование</span>
+						<svg class="flex-shrink-0 size-9 transition ease-in-out duration-300 group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+					</h3>
+					<p class="font-thin">Построй свою индивидуальную траекторию</p>
+					<div class="flex mt-[100px] gap-x-4">
+						<div class="">
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+					</div>
+				</div>
+			</Link>
+			<Link :href="route('client.program.spo')">
+				<div class="w-full bg-[#E9F2FE] h-[300px] hover:opacity-70 duration-300 rounded group px-10 py-8">
+					<h3 class="my-3 flex justify-between items-center gap-x-1 text-2xl font-semibold text-gray-800">
+						<span class="">Среднее профессиональное</span>
+						<svg class="flex-shrink-0 size-9 transition duration-300 ease-in-out group-hover:translate-x-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+					</h3>
+					<p class="font-thin">Построй свою индивидуальную траекторию</p>
+					<div class="flex mt-[100px] gap-x-4">
+						<div class="">
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+						<div>
+							<span class="block text-xl font-semibold">30</span>
+							<span class="block">Программ</span>
+						</div>
+					</div>
+				</div>
+			</Link>
 		</div>
 
 
@@ -266,14 +273,14 @@ export default {
 	},
 
 	props: {
-		navigation: {
-			type: Array,
-		},
 		posts: {
-			type: Array,
+			type: Object,
 		},
 		events: {
-			type: Array,
+			type: Object,
+		},
+		sliders: {
+			type: Object,
 		}
 	},
 

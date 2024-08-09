@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('library_news', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->text('preview_text');
+            $table->string('category')->nullable();
             $table->text('content');
             $table->boolean('is_active');
             $table->timestamps();

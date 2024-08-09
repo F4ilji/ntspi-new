@@ -55,7 +55,7 @@ export default {
 		<title>Мероприятия</title>
 		<meta name="description" content="Your page description"/>
 	</Head>
-	<MainNavbar class="border-b" :sections="this.navigation"></MainNavbar>
+	<MainNavbar class="border-b" :sections="$page.props.navigation"></MainNavbar>
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<div class="px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
 			<div>

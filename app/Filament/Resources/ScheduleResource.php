@@ -55,9 +55,19 @@ class ScheduleResource extends Resource
                 Section::make()
                     ->schema([
                         Forms\Components\Grid::make(2)->schema([
-                            Select::make('educational_group_id')->options(EducationalGroup::all()->pluck('title', 'id'))->label('Выбрать группу')
+                            Select::make('educational_group_id')->options(EducationalGroup::all()->pluck('title', 'id'))
+                                ->live()
+                                ->label('Выбрать группу')
+                                ->afterStateUpdated(function (string|null $state, Forms\Set $set, Get $get) {
+                                    if (!empty($state)) {
+                                        $set('title', EducationalGroup::query()->where('id', $get('educational_group_id'))->first()->title);
+                                    }
+                                })
                                 ->required(),
-                            TextInput::make('title')->label('Заголовок')->required(),
+                            TextInput::make('title')
+                                ->live()
+
+                                ->label('Заголовок')->required(),
 
                             Select::make('type')->options([
                                 'schedule' => 'Обычное расписание',

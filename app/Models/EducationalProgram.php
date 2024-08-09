@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\LevelEducational;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +14,10 @@ class EducationalProgram extends Model
 
 
     protected $casts = [
+        'program_features' => 'array',
+        'about_program' => 'array',
         'learning_forms' => 'array',
+        'lvl_edu' => LevelEducational::class,
     ];
 
     public function directionStudy()
@@ -21,13 +25,9 @@ class EducationalProgram extends Model
         return $this->belongsTo(DirectionStudy::class);
     }
 
-    public function contests()
-    {
-        return $this->hasMany(ProgramContest::class);
-    }
 
-    public function exams()
+    public function admission_plans()
     {
-        return $this->hasMany(ProgramExam::class);
+        return $this->hasMany(AdmissionPlan::class, 'educational_programs_id', 'id');
     }
 }

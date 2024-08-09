@@ -34,6 +34,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs npm
 
 EXPOSE 6001
+EXPOSE 5173
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN curl -sS https://getcomposer.org/installer | php -- \

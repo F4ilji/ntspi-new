@@ -9,7 +9,6 @@
 							class="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 							href="/" aria-label="Brand">
 						<img class="max-w-[300px]" src="/logos/ntspi-logo.svg" alt="">
-
 					</Link>
 
 					<div class="lg:hidden">

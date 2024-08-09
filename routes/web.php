@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\ClientAcademicJournalController;
 use App\Http\Controllers\ClientAdditionalEducationController;
 use App\Http\Controllers\ClientDepartmentController;
+use App\Http\Controllers\ClientDivisionController;
 use App\Http\Controllers\ClientEventController;
 use App\Http\Controllers\ClientExternalVacancyController;
 use App\Http\Controllers\ClientFacultyController;
 use App\Http\Controllers\ClientLibraryNewsController;
 use App\Http\Controllers\ClientPostController;
 use App\Http\Controllers\ClientProgramController;
+use App\Http\Controllers\ClientScheduleController;
 use App\Http\Controllers\ClientVacantPositionController;
 use App\Http\Controllers\ClientVirtualExhibitionController;
 use App\Http\Controllers\EducationalProgramController;
@@ -23,17 +26,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('access-check')->group(function () {
-
-
+});
     // Главная страница
     Route::get('/', [MainController::class, 'index'])->name('index');
 
     // Расписание занятий
-    Route::get('/schedule', [ScheduleController::class, 'clientIndex'])->name('client.schedule');
-    Route::get('/schedule/{id}', [ScheduleController::class, 'clientShow'])->name('client.schedule.show');
+    Route::get('/schedule', [ClientScheduleController::class, 'index'])->name('client.schedule');
+    Route::get('/schedule/{id}', [ClientScheduleController::class, 'show'])->name('client.schedule.show');
 
-    Route::get('/persons', [PersonController::class, 'index'])->name('client.person.index');
-    Route::get('/persons/{userDetail}', [PersonController::class, 'show'])->name('client.person.show');
+    Route::get('/persons/{id}', [PersonController::class, 'show'])->name('client.person.show');
     Route::get('/students/{student}', [StudentController::class, 'show'])->name('client.student.show')->middleware('auth');
 
     // Новости
@@ -41,8 +42,13 @@ Route::middleware('access-check')->group(function () {
     Route::get('/news/{slug}', [ClientPostController::class, 'show'])->name('client.post.show');
 
     // Образовательные программы
-    Route::get('/programs/{slug}', [ClientProgramController::class, 'index'])->name('client.program.index');
+//    Route::get('/programs/{slug}', [ClientProgramController::class, 'index'])->name('client.program.index');
     Route::get('/program/{educationalProgram}', [ClientProgramController::class, 'show'])->name('client.program.show');
+
+    Route::get('/programs/bakalavriat/', [ClientProgramController::class, 'bakalavriat'])->name('client.program.bakalavriat');
+    Route::get('/programs/spo/', [ClientProgramController::class, 'spo'])->name('client.program.spo');
+    Route::get('/programs/magistratura/', [ClientProgramController::class, 'magistratura'])->name('client.program.magistratura');
+
 
     // Образовательные программы
     Route::get('/additional-education/', [ClientAdditionalEducationController::class, 'index'])->name('client.additionalEducation.index');
@@ -67,19 +73,22 @@ Route::middleware('access-check')->group(function () {
     Route::get('/current-vacancies/', [ClientExternalVacancyController::class, 'index'])->name('client.external.vacant.index');
     Route::get('/current-vacancies/{id}', [ClientExternalVacancyController::class, 'show'])->name('client.external.vacant.show');
 
+    Route::get('/academic-journals/', [ClientAcademicJournalController::class, 'index'])->name('client.academicJournals.index');
+    Route::get('/academic-journals/{slug}', [ClientAcademicJournalController::class, 'show'])->name('client.academicJournals.show');
+
     // Факультеты и кафедры
     Route::get('/faculties', [ClientFacultyController::class, 'index'])->name('client.faculty.index');
     Route::get('/faculties/{slug}', [ClientFacultyController::class, 'show'])->name('client.faculty.show');
+    Route::get('/faculties/{facultySlug}/{departmentSlug}', [ClientDepartmentController::class, 'show'])->name('client.department.show');
 
-    Route::get('/faculties/{slug}/departments/', [ClientDepartmentController::class, 'index'])->name('client.department.index');
-    Route::get('/faculties/{facultySlug}/departments/{departmentSlug}', [ClientDepartmentController::class, 'show'])->name('client.department.show');
+    // Подразделения института
+    Route::get('/divisions', [ClientDivisionController::class, 'index'])->name('client.division.index');
+    Route::get('/divisions/{slug}', [ClientDivisionController::class, 'show'])->name('client.division.show');
 
 
     Route::get('/get-data', [UpdateEduDataApiController::class, 'index']);
 
-//    Route::get('{path}', [PageController::class, 'render'])->where('path', '[0-9,a-z,/,-]+')->name('page.view');
-
-});
+    Route::get('{path}', [PageController::class, 'render'])->where('path', '[0-9,a-z,/,-]+')->name('page.view');
 
 
 

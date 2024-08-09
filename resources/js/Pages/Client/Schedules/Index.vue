@@ -14,7 +14,7 @@ export default {
 	},
 	components: {ClientFooterDown, MainNavbar, Link},
 	props: [
-		'schedules',
+		'educationalGroups',
 		'mainSections',
 		'searchRequest',
 		'navigation',
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <template>
-	<MainNavbar class="border-b" :sections="this.navigation"></MainNavbar>
+	<MainNavbar class="border-b" :sections="$page.props.navigation"></MainNavbar>
 
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<article class="w-full min-w-0 mt-4 px-1 md:px-6">
@@ -105,12 +105,12 @@ export default {
 			<div class="mx-auto max-w-2xl hs-accordion-group grid grid-cols-1 lg:grid-cols-2 gap-3">
 
 				<transition-group name="fade">
-					<template v-for="schedule in schedules.data" :key="schedule.id">
+					<template v-for="educationalGroup in educationalGroups.data" :key="educationalGroup.id">
 						<div class="hs-accordion hs-accordion-active:border-gray-200 bg-white border-b dark:hs-accordion-active:border-gray-700 dark:bg-gray-800 dark:border-transparent"
 							 id="hs-active-bordered-heading-one">
 							<button class="hs-accordion-toggle hs-accordion-active:text-blue-600 inline-flex justify-between items-center gap-x-3 w-full font-semibold text-start text-gray-800 py-4 px-5 hover:text-gray-500 disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:text-blue-500 dark:text-gray-200 dark:hover:text-gray-400 dark:focus:outline-none dark:focus:text-gray-400"
 									aria-controls="hs-basic-active-bordered-collapse-one">
-								{{ schedule.name }}
+								{{ educationalGroup.title }}
 								<svg class="hs-accordion-active:hidden block w-3.5 h-3.5"
 									 xmlns="http://www.w3.org/2000/svg"
 									 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -129,9 +129,9 @@ export default {
 								 class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
 								 aria-labelledby="hs-active-bordered-heading-one">
 								<div class="pb-4 px-5 grid gap-3 grid-cols-1">
-									<template v-for="subSchedule in schedule.subSchedules" :key="subSchedule.id">
-										<a target="_blank" :href="subSchedule.path_file" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-											{{ subSchedule.name }}
+									<template v-for="schedule in educationalGroup.schedules" :key="schedule.id">
+										<a target="_blank" :href="route('client.schedule.show', schedule.id)" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+											{{ schedule.title }}
 										</a>
 									</template>
 

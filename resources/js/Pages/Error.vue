@@ -4,7 +4,7 @@
 		<meta name="description" content="Your page description">
 	</Head>
 
-
+	<MainNavbar :sections="$page.props.navigation" />
 
 
 

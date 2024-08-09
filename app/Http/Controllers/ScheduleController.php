@@ -48,34 +48,7 @@ class ScheduleController extends Controller
         return Inertia::render('AdminPanel/Schedules/Show', compact('schedule'));
     }
 
-    public function clientIndex(Request $request)
-    {
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
 
-        $schedules = collect();
-
-        if (request()->filled('search')) {
-            $schedules = ScheduleResource::collection(Schedule::query()
-                ->where('name', 'like', '%' . request()->input('search') . '%')
-                ->ExistSubSchedule()
-                ->orderBy('name')
-                ->get());
-        }
-
-        $searchRequest = request()->input('search');
-
-        return Inertia::render('Client/Schedules/Index', compact('schedules', 'navigation', 'searchRequest'));
-    }
-
-    public function clientShow($id)
-    {
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
-
-        $schedule = Schedule::find($id);
-
-        $searchRequest = request()->input('search');
-        return Inertia::render('Client/Schedules/Show', compact('schedule', 'navigation'));
-    }
 
 
 

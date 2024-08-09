@@ -46,14 +46,30 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
-    public function detailInfo()
+    public function userDetail()
     {
-        return $this->hasOne(UserDetail::class);
+        return $this->hasOne(UserDetail::class, 'user_id');
+    }
+
+
+    public function departments_work()
+    {
+        return $this->belongsToMany(Department::class, 'workers_departments')->withPivot(['position']);
+    }
+
+    public function departments_teach()
+    {
+        return $this->belongsToMany(Department::class, 'teachers_departments')->withPivot(['teaching_position']);
     }
 
     public function divisions()
     {
-        return $this->belongsToMany(Division::class);
+        return $this->belongsToMany(Division::class, 'division_user')->withPivot(['administrativePosition']);
+    }
+
+    public function faculties()
+    {
+        return $this->belongsToMany(Faculty::class, 'workers_faculties')->withPivot(['position']);
     }
 
     public function canAccessPanel(Panel|\Filament\Panel $panel): bool

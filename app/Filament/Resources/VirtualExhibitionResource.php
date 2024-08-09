@@ -32,7 +32,15 @@ class VirtualExhibitionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->required()->label('Заголовок'),
+                Forms\Components\Grid::make()->schema([
+                    Forms\Components\TextInput::make('title')->required()->label('Заголовок'),
+                    Forms\Components\TextInput::make('category')->required()->label('Категория (Необязательно)'),
+                ]),
+
+                Forms\Components\Textarea::make('preview_text')->required()->label('Текст анонса')
+                    ->required()
+                    ->columnSpanFull(),
+
                 Section::make('Контент')->schema([
                     \Filament\Forms\Components\Builder::make('content')->label('')->blocks([
                         Builder\Block::make('heading')->label('Заголовок')
@@ -50,6 +58,7 @@ class VirtualExhibitionResource extends Resource
                                     ->label('Текст')
                                     ->profile('test')
                                     ->required()
+
                             ]),
                         Builder\Block::make('image')
                             ->schema([
@@ -112,7 +121,7 @@ class VirtualExhibitionResource extends Resource
                         ->addActionLabel('Добавить новый блок'),
 
                 ]),
-                Forms\Components\Toggle::make('is_active')->required()->label('Активная выставка'),
+                Forms\Components\Toggle::make('is_active')->required()->label('Активная заметка')->default(true),
             ]);
     }
 

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('uuid');
             $table->string('name');
+            $table->string('about_program')->nullable();
+            $table->string('program_features')->nullable();
             $table->string('inner_code');
             $table->integer('lvl_edu');
             $table->string('status');

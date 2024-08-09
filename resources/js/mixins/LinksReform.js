@@ -1,7 +1,12 @@
 export const linksReform = {
+    data() {
+        return {
+            excludedPaths: ['/sveden/', '/storage']
+        }
+    },
     methods: {
         checkPathname(pathname) {
-            return pathname.startsWith('/sveden/');
+            return this.excludedPaths.some(path => pathname.startsWith(path));
         },
         getDefaultLinks() {
             const links = document.querySelectorAll('a:not([href^="#"]):not([download])');
@@ -29,9 +34,5 @@ export const linksReform = {
             });
         });
 
-        // staticLinks.forEach(link => {
-        //     link.style.textDecoration = "underline";
-        //     link.style.color = '#C10020'
-        // });
     }
 };

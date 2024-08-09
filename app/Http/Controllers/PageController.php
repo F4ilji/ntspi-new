@@ -50,19 +50,40 @@ class PageController extends Controller
         return Inertia::render('AdminPanel/Pages/Registered', compact('pages', 'filters'));
     }
 
-
-    public function create()
+    public function render($path)
     {
-        return Inertia::render('AdminPanel/Pages/Create');
+        $page = Page::where('path', '=', $path)->with('section.pages.section', 'section.mainSection')->first();
+        if ($page === null) {
+            abort(404);
+        }
+
+        if (isset($page->section)) {
+            $subSectionPages = PageResource::collection($page->section->pages);
+            $breadcrumbs = [
+                'mainSection' => $page->section->mainSection->title,
+                'subSection' => $page->section->title,
+                'page' => $page->title,
+            ];
+        } else {
+            $subSectionPages = null;
+            $breadcrumbs = null;
+        }
+
+
+        $page = new PageResource($page);
+
+
+
+        $error = $page->code;
+
+        if ($page->code != 200) {
+            abort($error);
+        }
+
+
+        return Inertia::render('Page', compact('page', 'subSectionPages', 'breadcrumbs'));
     }
 
-    public function store(StoreRequest $request)
-    {
-        $data = $request->validated();
-        $data['content'] = json_encode($data['content']);
-        Page::create($data);
-        return redirect()->route('admin.page.index');
-    }
 
     public function edit($slug)
     {
@@ -97,41 +118,22 @@ class PageController extends Controller
         return redirect()->route('admin.registered.page.index');
     }
 
-    public function render($path)
-    {
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
-
-        $page = Page::where('path', '=', $path)->first();
-        if ($page === null) {
-            abort(404);
-        }
-
-        if (isset($page->section)) {
-            $subSectionPages = PageResource::collection($page->section->pages);
-            $breadcrumbs = [
-                'mainSection' => $page->section->mainSection->title,
-                'subSection' => $page->section->title,
-                'page' => $page->title,
-            ];
-        } else {
-            $subSectionPages = null;
-            $breadcrumbs = null;
-        }
-
-
-        $page = new PageResource($page);
-
-        $error = $page->code;
-
-        if ($page->code != 200) {
-            abort($error);
-        }
-        return Inertia::render('Page', compact('page', 'navigation', 'subSectionPages', 'breadcrumbs'));
-    }
-
     public function destroy(Page $page)
     {
         $page->delete();
+        return redirect()->route('admin.page.index');
+    }
+
+    public function create()
+    {
+        return Inertia::render('AdminPanel/Pages/Create');
+    }
+
+    public function store(StoreRequest $request)
+    {
+        $data = $request->validated();
+        $data['content'] = json_encode($data['content']);
+        Page::create($data);
         return redirect()->route('admin.page.index');
     }
 }

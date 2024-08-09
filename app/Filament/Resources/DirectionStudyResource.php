@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\LevelEducational;
 use App\Filament\Resources\DirectionStudyResource\Pages;
 use App\Filament\Resources\DirectionStudyResource\RelationManagers;
 use App\Models\DirectionStudy;
@@ -38,7 +39,8 @@ class DirectionStudyResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('code'),
-                Tables\Columns\TextColumn::make('degree.name')->limit(15),
+                Tables\Columns\TextColumn::make('lvl_edu')
+                    ->formatStateUsing(fn ($state) => $state->getLabel())
             ])
             ->filters([
                 //

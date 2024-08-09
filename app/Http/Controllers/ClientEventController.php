@@ -35,7 +35,6 @@ class ClientEventController extends Controller
                 'month' => $date->getTranslatedMonthName('Do MMMM'),
             ];
         }
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
         $eventDates = Event::select('event_date_start')
             ->distinct()
             ->where('event_date_start', '>=', date('Y-m-d'))
@@ -68,16 +67,15 @@ class ClientEventController extends Controller
             ->orderBy('event_time_start', 'asc')
             ->get());
 
-        return Inertia::render('Client/Events/Index', compact('navigation', 'eventDates', 'events', 'currentDate'));
+        return Inertia::render('Client/Events/Index', compact('eventDates', 'events', 'currentDate'));
     }
 
     public function show(string $slug)
     {
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
         $event = new ClientEventFullResource(Event::where('slug', '=', $slug)
             ->with('category')
             ->first());
-        return Inertia::render('Client/Events/Show', compact('navigation', 'event'));
+        return Inertia::render('Client/Events/Show', compact('event'));
     }
 
     private function getDayOfWeekRussian(string $dayOfWeek): string

@@ -33,15 +33,12 @@ export default {
     };
   },
   props: {
-    mainSections: {
-        type: Array,
+		campaignName: {
+        type: String,
     },
-		degree: {
+		naprs: {
 			type: Array
 		},
-		degrees: {
-			type: Array
-		}
   },
   methods: {
 		transformToColumns(originalArray) {
@@ -70,11 +67,11 @@ export default {
 
 <template>
   <Head>
-    <title>Новости</title>
+    <title>Приемная компания</title>
     <meta name="description" content="Your page description"/>
   </Head>
   <ClientScrollTimeline/>
-  <MainNavbar class="border-b" :sections="this.mainSections"></MainNavbar>
+  <MainNavbar class="border-b" :sections="$page.props.navigation"></MainNavbar>
   <div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:py-10">
     <div class="w-100">
       <div>
@@ -82,22 +79,30 @@ export default {
         <!-- End Avatar Media -->
         <!-- Content -->
         <div class="space-y-5 md:space-y-4">
+					<h1 class="text-brand-primary text-center mb-3 mt-2 text-3xl font-semibold tracking-tight dark:text-white lg:text-[40px] lg:leading-tight">
+						{{ this.campaignName }}
+					</h1>
           <div class="space-y-5 md:space-y-4">
             <div>
 							<div class="">
 								<nav class="-mb-0.5 flex justify-center space-x-6">
-									<template v-for="degree in degrees">
-										<Link
-												:class="{ 'border-blue-500 text-blue-600': route('client.program.index', degree.slug) === $page.props.ziggy.location, 'text-gray-500 border-transparent': route('client.program.index', degree.slug) !== $page.props.ziggy.location }"
-												:href="route('client.program.index', degree.slug)" class="py-2 px-1 inline-flex items-center gap-2 border-b text-sm whitespace-nowrap hover:text-blue-600 focus:outline-none focus:text-blue-600">
-											{{ textLimit(degree.name) }}
-										</Link>
-									</template>
+									<Link :class="{ 'border-blue-500 text-blue-600': route('client.program.bakalavriat') === $page.props.ziggy.location, 'text-gray-500 border-transparent': route('client.program.bakalavriat') !== $page.props.ziggy.location }"
+												:href="route('client.program.bakalavriat')" class="py-2 px-1 inline-flex items-center gap-2 border-b text-sm whitespace-nowrap hover:text-blue-600 focus:outline-none focus:text-blue-600">
+										Бакалавриат
+									</Link>
+									<Link :class="{ 'border-blue-500 text-blue-600': route('client.program.spo') === $page.props.ziggy.location, 'text-gray-500 border-transparent': route('client.program.spo') !== $page.props.ziggy.location }"
+												:href="route('client.program.spo')" class="py-2 px-1 inline-flex items-center gap-2 border-b text-sm whitespace-nowrap hover:text-blue-600 focus:outline-none focus:text-blue-600">
+										Среднее професиональное образование
+									</Link>
+									<Link :class="{ 'border-blue-500 text-blue-600': route('client.program.magistratura') === $page.props.ziggy.location, 'text-gray-500 border-transparent': route('client.program.magistratura') !== $page.props.ziggy.location }"
+												:href="route('client.program.magistratura')" class="py-2 px-1 inline-flex items-center gap-2 border-b text-sm whitespace-nowrap hover:text-blue-600 focus:outline-none focus:text-blue-600">
+										Магистратура
+									</Link>
 								</nav>
 							</div>
               <div class="container px-8 mx-auto xl:px-5 py-5 lg:py-8">
 								<div class="w-4/5 mx-auto flex">
-									<template v-for="naprs in transformToColumns(degree.data.naprs)">
+									<template v-for="naprs in transformToColumns(this.naprs.data)">
 										<div class="w-1/2 flex flex-col">
 											<template v-for="napr in naprs">
 												<div style="height: max-content" class="px-2">

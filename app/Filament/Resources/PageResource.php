@@ -68,7 +68,7 @@ class PageResource extends Resource
                                     ]),
                                 Builder\Block::make('paragraph')
                                     ->schema([
-                                        TinyEditor::make('text')->profile('test')->label(''),
+                                        TinyEditor::make('content')->profile('test')->label(''),
                                     ])->label('Текст'),
                                 Builder\Block::make('image')
                                     ->schema([

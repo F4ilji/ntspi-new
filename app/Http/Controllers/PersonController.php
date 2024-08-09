@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClientFullInfoPersonResource;
 use App\Http\Resources\ClientNavigationResource;
 use App\Http\Resources\MainSectionResource;
 use App\Http\Resources\UserDetailResource;
@@ -23,9 +24,9 @@ class PersonController extends Controller
         return Inertia::render('Client/Persons/Index', compact('persons', 'filters'));
     }
 
-    public function show(UserDetail $userDetail)
+    public function show(string $id)
     {
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
-        return Inertia::render('Client/Persons/Show', compact('userDetail', 'mainSections'));
+        $person = new ClientFullInfoPersonResource(User::query()->with(['userDetail', 'departments_work.faculty', 'departments_teach.faculty', 'divisions', 'faculties'])->where('id', $id)->firstOrFail());
+        return Inertia::render('Client/Persons/Show', compact('person'));
     }
 }

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'Failj@bk.ru',
             'password' => Hash::make('2288'),
         ]);
+        User::factory()->count(50)->create();
         EventCategory::factory()->count(10)->create();
         Category::factory()->count(80)->create();
         Post::factory()->count(1000)->create();

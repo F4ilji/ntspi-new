@@ -2,9 +2,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
-    "watch": "vite --watch"
+    "watch": "vite"
   },
   "devDependencies": {
     "@inertiajs/vue3": "^1.0.0",

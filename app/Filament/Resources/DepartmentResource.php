@@ -7,12 +7,15 @@ use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use App\Models\Faculty;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class DepartmentResource extends Resource
 {
@@ -22,17 +25,27 @@ class DepartmentResource extends Resource
 
     protected static ?string $pluralLabel = 'Кафедры';
 
+    public static ?string $label = 'Кафедра';
+
+
     protected static ?string $navigationParentItem = 'Факультеты';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->label('Название кафедры')->required(),
+                TextInput::make('title')->label('Название кафедры')->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
+                        $set('slug', Str::slug($state));
+                    }),
+                TextInput::make('slug')->label('Slug')->unique(ignoreRecord: true)->readOnly()->required(),
                 Forms\Components\Select::make('faculty_id')
                     ->options(Faculty::all()->pluck('title', 'id'))
                     ->label('Факультет')
                     ->required(),
+                Toggle::make('is_active')->default(true)->label('Активная кафедра')->inline(false),
+
             ]);
     }
 
@@ -59,7 +72,8 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\WorkersRelationManager::class,
+            RelationManagers\TeachersRelationManager::class,
         ];
     }
 

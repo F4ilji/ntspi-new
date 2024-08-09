@@ -1,5 +1,4 @@
 <template>
-
 	<header :style=" underSliderHeader ? 'background: hsla(0,0%,100%,.6)' : '' "
 					:class="{ 'header-filter': headerFilter }"
 					class="flex duration-500 fixed top-0 left-0 right-0 flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm py-3 md:py-0">

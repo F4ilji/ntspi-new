@@ -79,7 +79,7 @@ export default {
 </script>
 
 <template>
-	<MainNavbar class="border-b" :sections="this.mainSectionNavigate"></MainNavbar>
+	<MainNavbar class="border-b" :sections="$page.props.navigation"></MainNavbar>
 
 	<div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
 		<article class="w-full min-w-0 mt-4 px-1 md:px-6">
@@ -91,9 +91,7 @@ export default {
 						</h1>
 
 						<div class="text-center">
-							<p class="mt-3 text-gray-600 dark:text-gray-400">
-								{{ schedule.title }}
-							</p>
+							<p class="mt-1 text-gray-600 dark:text-neutral-400">{{ schedule.title }}</p>
 						</div>
 
 
@@ -121,18 +119,18 @@ export default {
 			<div class="mx-auto max-w-4xl hs-accordion-group gap-3">
 
 				<div id="basic-tabs-1" role="tabpanel" aria-labelledby="basic-tabs-item-1">
-						<table class="border-collapse border border-slate-500 w-full mb-4">
+						<table class="border-collapse rounded-xl border w-full mb-4">
 							<tbody>
 							<tr>
-								<td class="text-center border border-slate-600 px-3">#</td>
-								<td class="text-center border border-slate-600" width="20%">Время</td>
-								<td class="text-center border border-slate-600" colspan="3">Предмет</td>
+								<td class="text-center border px-3">#</td>
+								<td class="text-center border" width="20%">Время</td>
+								<td class="text-center border" colspan="3">Предмет</td>
 							</tr>
 							<template v-for="(lesson, index) in getDayOfWeek.scheduleDay.form">
 								<tr>
-									<td class="border border-slate-600 text-center">{{ index + 1 }}</td>
-									<td class="border border-slate-600 text-center">{{ this.timeSchedules[index] }}</td>
-									<td class="text-center border border-slate-600">
+									<td class="border text-center">{{ index + 1 }}</td>
+									<td class="border text-center">{{ this.timeSchedules[index] }}</td>
+									<td class="text-center border">
 										<template v-for="lesson_info in lesson">
 											<div class="flex items-stretch justify-center">
 												<template v-for="firstWeek in lesson_info[0]">
@@ -146,8 +144,8 @@ export default {
 											<div v-if="lesson_info[1]" class="flex border-t justify-center">
 												<template v-for="firstWeek in lesson_info[1]">
 													<template v-for="(couple, index) in firstWeek">
-														<div class="flex" :class="{'border-l': index === 1, 'w-1/2': Object.keys(firstWeek).length === 2}">
-															<p>{{ couple.title }} {{ couple.teacher }} <i>{{ couple.studyRoom }}</i></p>
+														<div class="flex justify-center" :class="{'border-l': index === 1, 'w-1/2': Object.keys(firstWeek).length === 2}">
+															<p class="my-auto text-center px-2 py-1">{{ couple.title }} {{ couple.teacher }} <i>{{ couple.studyRoom }}</i></p>
 															<p class="unselectable text-center opacity-0" v-if="couple.title === null">-------------------- <br>
 																---------</p>
 														</div>
@@ -170,21 +168,21 @@ export default {
 				</div>
 				<div id="basic-tabs-2" class="hidden" role="tabpanel" aria-labelledby="basic-tabs-item-2">
 					<template v-for="(day, index) in schedule.days">
-						<table class="border-collapse border border-slate-500 w-full mb-4">
+						<table class="border-collapse border w-full mb-4">
 							<tbody>
 							<tr>
 								<td class="text-center" rowspan="9" width="30px">{{ this.weekday[index] }}</td>
 							</tr>
 							<tr>
-								<td class="text-center border border-slate-600 px-3">#</td>
-								<td class="text-center border border-slate-600" width="20%">Время</td>
-								<td class="text-center border border-slate-600" colspan="3">Предмет</td>
+								<td class="text-center border  px-3">#</td>
+								<td class="text-center border" width="20%">Время</td>
+								<td class="text-center border" colspan="3">Предмет</td>
 							</tr>
 							<template v-for="(lesson, index) in day.form">
 								<tr>
-									<td class="border border-slate-600 text-center">{{ index + 1 }}</td>
-									<td class="border border-slate-600 text-center">{{ this.timeSchedules[index] }}</td>
-									<td class="text-center border border-slate-600">
+									<td class="border text-center">{{ index + 1 }}</td>
+									<td class="border text-center">{{ this.timeSchedules[index] }}</td>
+									<td class="text-center border">
 										<template v-for="lesson_info in lesson">
 											<div class="flex items-stretch justify-center">
 												<template v-for="firstWeek in lesson_info[0]">
@@ -198,8 +196,8 @@ export default {
 											<div v-if="lesson_info[1]" class="flex border-t justify-center">
 												<template v-for="firstWeek in lesson_info[1]">
 													<template v-for="(couple, index) in firstWeek">
-														<div class="flex" :class="{'border-l': index === 1, 'w-1/2': Object.keys(firstWeek).length === 2}">
-															<p>{{ couple.title }} {{ couple.teacher }} <i>{{ couple.studyRoom }}</i></p>
+														<div class="flex justify-center" :class="{'border-l': index === 1, 'w-1/2': Object.keys(firstWeek).length === 2}">
+															<p class="my-auto text-center px-2 py-1">{{ couple.title }} {{ couple.teacher }} <i>{{ couple.studyRoom }}</i></p>
 															<p class="unselectable text-center opacity-0" v-if="couple.title === null">-------------------- <br>
 																---------</p>
 														</div>

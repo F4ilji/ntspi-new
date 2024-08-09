@@ -15,4 +15,14 @@ class Department extends Model
     {
         return $this->belongsTo(Faculty::class);
     }
+
+    public function workers()
+    {
+        return $this->belongsToMany(User::class, 'workers_departments')->withPivot(['position']);
+    }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(User::class, 'teachers_departments')->withPivot(['teaching_position']);
+    }
 }

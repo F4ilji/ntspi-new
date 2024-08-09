@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o,c as t}from"./app-DUiMEiTm.js";const r={name:"ClientScrollTimeline"},c={id:"progress"};function n(s,a,i,_,l,p){return o(),t("div",c)}const m=e(r,[["render",n],["__scopeId","data-v-ffdaa09f"]]);export{m as C};

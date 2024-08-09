@@ -35,8 +35,8 @@ class MainSectionResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug')->label('Slug')->unique(ignoreRecord: true)->readOnly()->required(),
-                Forms\Components\Select::make('subSection_ids')->options(
-                    SubSection::query()->get()->pluck('title', 'id')
+                Forms\Components\Select::make('subSection_ids')
+                    ->options(SubSection::query()->get()->pluck('title', 'id')
                 )->multiple()
             ]);
     }
@@ -77,4 +77,6 @@ class MainSectionResource extends Resource
             'edit' => Pages\EditMainSection::route('/{record}/edit'),
         ];
     }
+
+
 }

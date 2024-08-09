@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\ClientNavigationResource;
+use App\Models\MainSection;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -41,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'navigation' => ClientNavigationResource::collection(MainSection::with('subSections.pages.section')->orderBy('sort', 'asc')->get()),
 
         ];
     }

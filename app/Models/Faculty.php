@@ -16,5 +16,11 @@ class Faculty extends Model
         return $this->hasMany(Department::class);
     }
 
+    public function workers()
+    {
+        return $this->belongsToMany(User::class, 'workers_faculties')->withPivot(['position'])->whereHas('userDetail');
+    }
+
+
 
 }

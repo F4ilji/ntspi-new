@@ -17,8 +17,9 @@ class DivisionResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => json_decode($this->description),
-            'created_at' => $this->created_at->diffforhumans(),
+            'slug' => $this->slug,
+            'workers' => UserResource::collection($this->whenLoaded('workers')),
+            'description' => $this->description,
         ];
     }
 }

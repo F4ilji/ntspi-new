@@ -17,7 +17,6 @@ class ClientPostController extends Controller
 {
     public function index(Request $request)
     {
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
         $categories = CategoryResource::collection(Category::has('posts')->get());
         $posts = ClientPostListResource::collection(Post::query()
             ->select('title', 'slug', 'authors', 'category_id', 'preview', 'search_data', 'created_at')
@@ -35,14 +34,13 @@ class ClientPostController extends Controller
             'search' => request()->input('search'),
             'category_id' => request()->input('category')
         ];
-        return Inertia::render('Client/Posts/Index', compact('navigation','filters', 'posts', 'categories'));
+        return Inertia::render('Client/Posts/Index', compact('filters', 'posts', 'categories'));
     }
 
     public function show($slug)
     {
-        $navigation = ClientNavigationResource::collection(MainSection::with('subSections.pages')->orderBy('sort', 'asc')->get());
         $post = new PostResource(Post::where('slug', $slug)->firstOrFail());
-        return Inertia::render('Client/Posts/Show', compact('post', 'navigation'));
+        return Inertia::render('Client/Posts/Show', compact('post'));
     }
 
 

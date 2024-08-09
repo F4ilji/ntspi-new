@@ -16,10 +16,7 @@ class ScheduleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'faculty' => $this->faculty->title,
-            'subSchedules' => $this->subSchedules,
-            'created_at' => $this->created_at->diffforhumans()
+            'title' => $this->title,
         ];
     }
 }

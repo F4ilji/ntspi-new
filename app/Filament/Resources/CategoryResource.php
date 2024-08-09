@@ -23,7 +23,6 @@ class CategoryResource extends Resource
     protected static ?string $pluralLabel = 'Категории';
     protected static ?string $navigationParentItem = 'Новости';
 
-
     protected static ?int $navigationSort = 2;
 
 

@@ -17,7 +17,6 @@ class EducationalProgramResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'directionStudy' => $this->directionStudy->name,
         ];
     }
 }

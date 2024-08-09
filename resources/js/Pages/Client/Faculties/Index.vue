@@ -33,18 +33,9 @@ export default {
     };
   },
   props: {
-    posts: {
+		faculties: {
         type: Array,
     },
-    filters: {
-        type: Array,
-    },
-    categories: {
-        type: Array,
-    },
-		navigation: {
-			type: Array,
-		},
   },
   methods: {
 
@@ -57,51 +48,52 @@ export default {
 
 <template>
   <Head>
-    <title>Новости</title>
+    <title>Факультеты</title>
     <meta name="description" content="Your page description"/>
   </Head>
   <ClientScrollTimeline/>
-  <MainNavbar class="border-b" :sections="this.navigation"></MainNavbar>
+  <MainNavbar class="border-b" :sections="$page.props.navigation"></MainNavbar>
   <div class="relative mx-auto mt-[67px] max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
     <div class="px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
       <div>
-        <AdminIndexHeader>
-          <ClientPostSearch />
-          <ClientPostFilter :items="categories"/>
-        </AdminIndexHeader>
         <!-- Avatar Media -->
         <!-- End Avatar Media -->
         <!-- Content -->
         <div class="space-y-5 md:space-y-4">
           <div class="space-y-5 md:space-y-4">
-            <div>
-              <div class="container px-8 mx-auto xl:px-5 max-w-screen-lg py-5 lg:py-8">
-                <div class="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
-                  <template v-for="post in posts.data" :key="post.id">
-                    <ClientPost :post="post" />
-                  </template>
-                </div>
-                <div class="mt-10 flex items-center justify-center">
-                  <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                    <Link as="button" :href="$props.posts.links.prev" :disabled="$props.posts.links.prev === null"
-                            class="relative inline-flex items-center gap-1 rounded-l-md border border-gray-300 bg-white px-3 py-2 pr-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                           stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-3 w-3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path>
-                      </svg>
-                      <span>Предыдущая</span></Link>
-                    <Link as="button" :href="$props.posts.links.next" :disabled="$props.posts.links.next === null"
-                        class="relative inline-flex items-center gap-1 rounded-r-md border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300">
-                      <span>Следующая</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                           stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-3 w-3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
-                      </svg>
-                    </Link>
-                  </nav>
-                </div>
-              </div>
-            </div>
+						<!-- Card Section -->
+						<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+
+							<div class="max-w-2xl text-center mx-auto mb-10 lg:mb-14">
+								<h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Факультеты и кафедры</h2>
+								<p class="mt-1 text-gray-600 dark:text-neutral-400">We've helped some great companies brand, design and get to market.</p>
+							</div>
+							<!-- Grid -->
+							<div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-3 sm:gap-6">
+								<template v-for="faculty in faculties.data">
+									<Link :href="route('client.faculty.show', faculty.slug)" class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md focus:outline-none focus:shadow-md transition" >
+										<div class="p-4 md:p-5">
+											<div class="flex justify-between items-center gap-x-3">
+												<div class="grow">
+													<h3 class="group-hover:text-blue-600 font-semibold text-gray-800">
+														{{ faculty.shortTitle }}
+													</h3>
+													<p class="text-sm text-gray-500">
+														{{ faculty.title }}
+													</p>
+												</div>
+												<div>
+													<svg class="shrink-0 size-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+												</div>
+											</div>
+										</div>
+									</Link>
+								</template>
+
+							</div>
+							<!-- End Grid -->
+						</div>
+						<!-- End Card Section -->
           </div>
         </div>
         <!-- End Content -->

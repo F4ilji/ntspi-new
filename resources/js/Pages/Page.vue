@@ -3,7 +3,7 @@
 		<title>{{ page.data.title }}</title>
 		<meta name="description" content="Your page description">
 	</Head>
-	<MainNavbar class="border-b" :sections="this.navigation" />
+	<MainNavbar class="border-b" :sections="$page.props.navigation" />
 
 
 
@@ -59,7 +59,7 @@
 					<div class="flex w-full sm:items-center gap-x-5 sm:gap-x-3">
 						<div class="grow">
 							<div class="grid sm:flex sm:justify-between sm:items-center gap-2">
-								<ol v-if="breadcrumbs" class="flex items-center whitespace-nowrap min-w-0"
+								<ol v-if="breadcrumbs" class="flex items-center whitespace-normal min-w-0"
 									aria-label="Breadcrumb">
 									<li class="text-sm">
 										<span class="flex items-center text-gray-500 hover:text-blue-600">
@@ -74,7 +74,7 @@
 									</li>
 									<li class="text-sm">
 										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
-											{{ this.breadcrumbs.mainSection }}
+											{{ textLimit(this.breadcrumbs.mainSection, 25) }}
 											<svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400"
 												 width="16" height="16"
 												 viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@
 									</li>
 									<li class="text-sm">
 										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
-											{{ this.breadcrumbs.subSection }}
+											{{ textLimit(this.breadcrumbs.subSection, 25) }}
 											<svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400"
 												 width="16" height="16"
 												 viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@
 									</li>
 									<li class="text-sm">
 										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
-											{{ textLimit(this.breadcrumbs.page, 40) }}
+											{{ textLimit(this.breadcrumbs.page, 25) }}
 										</span>
 									</li>
 								</ol>
@@ -115,7 +115,8 @@
 									</li>
 									<li class="text-sm">
 										<span class="flex items-center text-gray-500 hover:text-blue-600" @click.prevent>
-											{{ this.page.data.title }}
+											{{ textLimit(this.page.data.title, 30) }}
+
 										</span>
 									</li>
 								</ol>
@@ -150,7 +151,8 @@
 								<img loading="lazy" class="mx-auto object-cover rounded-sm hover:opacity-95 hover:duration-200 transition" :src="'/storage/' + img" alt="">
 							</template>
 						</div>
-						<div class="paragraph-container" v-html="block.data.content" v-if="block.type === 'paragraph'" />
+						{{ block.data.text }}
+						<div class="text-[16px] text-[#374151] dark:text-gray-200 leading-8 font-light" v-html="block.data.content" v-if="block.type === 'paragraph'"></div>
 
 
 						<div v-if="block.type === 'attaches'">
@@ -339,18 +341,23 @@ export default {
 
 		// this.editorImages = this.blocksWithSlideNumber.filter(block => block.type === 'image').map(block => block.data.file.url);
 
+		window.addEventListener("scroll", () => {
+			const headings = document.querySelectorAll('h2');
+			const visor = document.querySelector('#visor');
+			let lastVisibleHeading = null;
 
+			const visorRect = visor.getBoundingClientRect();
 
+			// Проверяем, находится ли визор в пределах видимости
+			if (visorRect.top > window.scrollY) {
+				this.currentNavSection = null;
+				lastVisibleHeading = null; // Сбрасываем заголовок, если визор не виден
+				return; // Выходим из функции, если визор не виден
+			}
 
-		const headings = document.querySelectorAll('h2');
-		const visor = document.querySelector('#visor');
-		let lastVisibleHeading = null;
-
-		window.addEventListener('scroll', () => {
 			for (let i = 0; i < headings.length; i++) {
 				const heading = headings[i];
 				const rect = heading.getBoundingClientRect();
-				const visorRect = visor.getBoundingClientRect();
 
 				// Проверяем, находится ли заголовок в видимой области и касается ли он элемента visor
 				if (rect.top >= 0 && rect.bottom <= window.innerHeight && rect.bottom >= visorRect.top && rect.top <= visorRect.bottom) {
@@ -359,10 +366,11 @@ export default {
 						this.currentNavSection = heading.id;
 						lastVisibleHeading = heading;
 					}
-					break;
+					break; // Выходим из цикла, если нашли видимый заголовок
 				}
 			}
 		});
+
 
 
 	},
